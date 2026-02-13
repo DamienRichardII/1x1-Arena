@@ -1,0 +1,36 @@
+
+/* MOBILE POLISH (site-wide) */
+@media (max-width: 900px){
+  .topbar{ padding: 12px 12px; }
+  .topbar__inner{ gap: 12px; }
+  .nav{ display:none; }
+  .nav__burger{ display:flex; }
+  .brand__name{ font-size: 14px; letter-spacing: .08em; }
+}
+
+@media (max-width: 640px){
+  .page{ padding: 0 14px; }
+  .hero{ padding-top: 96px; }
+  .hero__copy{ text-align:center; }
+  .h1{ font-size: clamp(42px, 12vw, 58px); line-height: 1.02; }
+  .chip{ font-size: 12px; padding: 10px 14px; }
+  .cta{ justify-content:center; flex-wrap: wrap; gap: 10px; }
+  .btn{ min-height: 44px; }
+  .pills{ justify-content:center; flex-wrap:wrap; gap: 10px; }
+  .pill{ font-size: 13px; padding: 10px 12px; }
+  .section{ padding: 26px 0; }
+  .section__head{ gap: 12px; }
+  .champGrid{ grid-template-columns: 1fr; gap: 14px; }
+  .board{ border-radius: 18px; }
+  .board__head{ padding: 14px 14px; }
+  .tableWrap{ border-radius: 14px; }
+  .socials{ right: 12px; bottom: 14px; gap: 10px; }
+  .social-btn{ width: 52px; height: 52px; border-radius: 16px; }
+  .footer__inner{ padding: 18px 14px; }
+  .footer__links{ flex-wrap: wrap; row-gap: 10px; column-gap: 16px; }
+  .fieldRow{ grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ scroll-behavior:auto !important; }
+}

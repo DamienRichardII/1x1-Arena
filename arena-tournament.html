@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Arena Tournament — 1X1 ARENA</title>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <link href="css/tournament.css" rel="stylesheet"/>
+  <link href="css/mobile.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <!-- Background -->
+  <div aria-hidden="true" class="bg">
+    <div class="bg__image" style="background-image:url('assets/AT.jpg')"></div>
+    <div class="bg__overlay"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a aria-label="Retour à l'accueil" class="brand" href="index.html">
+        <img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__btn is-active" href="arena-tournament.html"><span>Arena Tournament</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+      </nav>
+
+      <button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navmobile" hidden>
+      <a class="navmobile__link is-active" href="arena-tournament.html">Arena Tournament</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <h1 class="h1">Arena <span class="grad">Tournament</span></h1>
+
+          <p class="lead lead--boxed">
+            <span class="lead__line1">Un tournoi. Une catégorie. Un champion.</span>
+            <span class="lead__line2">
+              Le 1 contre 1 à l’énergie des sports de combat :
+              <span class="grad2">duels</span>, <span class="grad2">bracket</span> et <span class="grad2">ceinture</span>.
+            </span>
+          </p>
+
+          <div class="cta">
+            <a class="btn btn--primary" href="#format">Voir le format</a>
+            <a class="btn btn--ghost" href="#participer">Participer</a>
+          </div>
+
+          <div class="pills">
+            <span class="pill"><i class="dot dot--p"></i>Catégories (taille/poids)</span>
+            <span class="pill"><i class="dot dot--b"></i>Bracket à élimination</span>
+            <span class="pill"><i class="dot dot--w"></i>1 tournoi = 1 champion</span>
+          </div>
+        </div>
+
+        <aside aria-label="Highlights" class="highlight">
+          <div class="highlight__top">
+            <span class="tag">HIGHLIGHT</span>
+            <span class="tag tag--ghost">PARIS • 1V1</span>
+          </div>
+
+          <div class="highlight__media">
+            <video autoplay class="highlight__video" loop muted playsinline preload="metadata">
+              <source src="assets/highlights.mp4" type="video/mp4"/>
+            </video>
+          </div>
+
+          <div class="highlight__cap">
+            <div class="kpi"><div class="kpi__label">Show</div><div class="kpi__value">Intensité</div></div>
+            <div class="kpi"><div class="kpi__label">Esprit</div><div class="kpi__value">Respect</div></div>
+            <div class="kpi"><div class="kpi__label">Scène</div><div class="kpi__value">1V1</div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FORMAT -->
+    <section class="section" id="format">
+      <div class="section__head">
+        <h2 class="h2">Le format</h2>
+        <p class="muted">Pensé comme un événement premium : clair, spectaculaire, et facile à suivre.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img" src="assets/format-categories.jpg" alt="Catégories">
+            <div class="card__badge">1</div>
+          </div>
+          <div class="card__body">
+            <h3>Catégories</h3>
+            <p>Classement par taille/poids (ex : paliers de 10 cm) pour des matchs justes et explosifs.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img" src="assets/format-bracket.jpg" alt="Bracket">
+            <div class="card__badge">2</div>
+          </div>
+          <div class="card__body">
+            <h3>Bracket</h3>
+            <p>Élimination directe : chaque duel compte. Un parcours lisible pour le public et les joueurs.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card__media">
+            <img class="card__img" src="assets/format-champion.jpg" alt="Champion">
+            <div class="card__badge">3</div>
+          </div>
+          <div class="card__body">
+            <h3>Champion</h3>
+            <p>Le vainqueur devient champion de sa catégorie… et peut défendre son titre sur l’Arena Battle.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">1X1 ARENA</div>
+        <div class="footer__links">
+          <a href="arena-tournament.html">Arena Tournament</a>
+          <a href="arena-battle.html">Arena Battle</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+      </div>
+    </footer>
+
+    <div class="socials">
+      <a aria-label="Instagram" class="social-btn" href="https://instagram.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 12 3.5 3.5 0 0 0 12 10.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"></path>
+        </svg>
+      </a>
+
+      <a aria-label="TikTok" class="social-btn" href="https://tiktok.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M16.5 3a6.6 6.6 0 0 0 4.5 2v3.2a9.9 9.9 0 0 1-4.5-1.3v7.1c0 4-3.2 7.2-7.2 7.2S2.1 19.9 2.1 15.9s3.2-7.2 7.2-7.2c.4 0 .8 0 1.2.1v3.3c-.4-.1-.8-.2-1.2-.2-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4V3h3z"></path>
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+</body>
+</html>

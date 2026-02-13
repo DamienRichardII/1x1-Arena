@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Ranking — 1X1 ARENA</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="css/ranking.css" rel="stylesheet"/><link href="css/mobile.css" rel="stylesheet"/></head>
+<body>
+<!-- Background -->
+<div aria-hidden="true" class="bg bg--ranking">
+<div class="bg__image"></div>
+<div class="bg__grid"></div>
+<div class="bg__vignette"></div>
+</div>
+<!-- Topbar -->
+<header class="topbar">
+<div class="topbar__inner">
+<a aria-label="Retour à l'accueil" class="brand" href="index.html">
+<img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
+<span class="brand__name">1X1 ARENA</span>
+</a>
+<nav class="nav">
+<a class="nav__btn" href="arena-tournament.html"><span>Arena Tournament</span></a>
+<a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+<a class="nav__btn is-active" href="ranking.html"><span>Ranking</span></a>
+
+</nav>
+<button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
+<span></span><span></span><span></span>
+</button>
+</div>
+<div class="navmobile" hidden="">
+<a class="navmobile__link" href="arena-tournament.html">Arena Tournament</a>
+<a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+<a class="navmobile__link is-active" href="ranking.html">Ranking</a>
+
+</div>
+</header>
+<main class="page">
+<!-- HERO -->
+<section class="hero hero--ranking">
+<div class="hero__grid hero__grid--ranking">
+<div class="hero__copy">
+<!-- logo principal -->
+<img alt="Logo 1X1 Arena" class="hero__mark" decoding="async" loading="eager" src="assets/logo-mark-transparent-cropped.png"/>
+<div class="chip">CLASSEMENTS OFFICIELS</div>
+<h1 class="h1">Rank<span class="grad">ing</span></h1>
+<div class="cta">
+<a class="btn btn--primary" href="#rankings">Voir les classements</a>
+<a class="btn btn--ghost" href="#champions">Champions</a>
+</div>
+<div class="pills">
+<span class="pill"><i class="dot dot--p"></i>Bilans (V / D)</span>
+<span class="pill"><i class="dot dot--b"></i>Catégories</span>
+<span class="pill"><i class="dot dot--w"></i>Champion mis en avant</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CHAMPIONS -->
+<section class="section section--champions" id="champions">
+<div class="section__head">
+<h2 class="h2">Champions</h2>
+</div>
+<div class="champGrid">
+<article class="champ">
+<figure class="champ__img">
+<img alt="Nexweedy — Lil Height" src="assets/champ-nexweedy.jpg"/>
+</figure>
+<div class="champ__body">
+<div class="champ__kicker">Lil Height</div>
+<h3 class="champ__name">Nexweedy</h3>
+<div class="champ__meta">
+<span class="chip chip--ghost">Champion</span>
+<span class="chip chip--ghost">Lil Height</span>
+</div>
+</div>
+</article>
+<article class="champ">
+<figure class="champ__img">
+<img alt="DBS — Welter Height" src="assets/champ-dbs.jpg"/>
+</figure>
+<div class="champ__body">
+<div class="champ__kicker">Welter Height</div>
+<h3 class="champ__name">DBS</h3>
+<div class="champ__meta">
+<span class="chip chip--ghost">Champion</span>
+<span class="chip chip--ghost">Welter Height</span>
+</div>
+</div>
+</article>
+<article class="champ">
+<figure class="champ__img">
+<img alt="Mamaye — Big Height" src="assets/champ-mamaye.jpg"/>
+</figure>
+<div class="champ__body">
+<div class="champ__kicker">Big Height</div>
+<h3 class="champ__name">Mamaye</h3>
+<div class="champ__meta">
+<span class="chip chip--ghost">Champion</span>
+<span class="chip chip--ghost">Big Height</span>
+</div>
+</div>
+</article>
+<article class="champ">
+<figure class="champ__img">
+<img alt="Viqui Monga — Womens Division" src="assets/champ-viqui.jpg"/>
+</figure>
+<div class="champ__body">
+<div class="champ__kicker">Womens Division</div>
+<h3 class="champ__name">Viqui Monga</h3>
+<div class="champ__meta">
+<span class="chip chip--ghost">Champion</span>
+<span class="chip chip--ghost">Womens Division</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- RANKINGS -->
+<section class="section section--rankings" id="rankings">
+<div class="section__head section__head--rankings">
+<div>
+<h2 class="h2">Classements par catégorie</h2>
+</div>
+<div class="tools">
+<div aria-label="Catégories" class="seg" role="tablist">
+<button aria-selected="true" class="seg__btn is-active" data-cat="lil" role="tab">Lil Height</button>
+<button aria-selected="false" class="seg__btn" data-cat="welter" role="tab">Welter Height</button>
+<button aria-selected="false" class="seg__btn" data-cat="big" role="tab">Big Height</button>
+</div>
+<div class="search">
+<svg aria-hidden="true" class="search__ico" viewbox="0 0 24 24">
+<path d="M10 2a8 8 0 105.29 14l4.7 4.7 1.41-1.41-4.7-4.7A8 8 0 0010 2zm0 2a6 6 0 110 12 6 6 0 010-12z" fill="currentColor"></path>
+</svg>
+<input autocomplete="off" class="search__input" id="q" placeholder="Rechercher un joueur..." type="search"/>
+</div>
+</div>
+</div>
+<div class="board">
+<div class="board__head">
+<div class="board__title" id="boardTitle">—</div>
+<div class="board__sub" id="boardSub">—</div>
+</div>
+<div aria-label="Tableau de ranking" class="tableWrap" role="region" tabindex="0">
+<table class="table">
+<thead>
+<tr>
+<th class="c-rank">Rang</th>
+<th>Joueur</th>
+<th class="c-rec">Bilan</th>
+<th class="c-tag">Statut</th>
+</tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+<div class="board__foot">
+<div class="legend">
+<span class="pill pill--sm"><i class="dot dot--p"></i>Champion</span>
+<span class="pill pill--sm"><i class="dot dot--b"></i>Contender</span>
+<span class="pill pill--sm"><i class="dot dot--w"></i>Rookie</span>
+</div>
+</div>
+</div>
+<div class="cta cta--center">
+<a class="btn btn--primary" href="arena-battle.html">Voir Arena Battle</a>
+
+</div>
+</section>
+<!-- Footer -->
+<footer class="footer">
+<div class="footer__inner">
+<div class="footer__brand">1X1 ARENA</div>
+<div class="footer__links">
+<a href="arena-tournament.html">Arena Tournament</a>
+<a href="arena-battle.html">Arena Battle</a>
+<a href="ranking.html">Ranking</a>
+
+<a href="contact.html">Contact</a></div>
+<div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+</div>
+</footer>
+<!-- Socials -->
+<div class="socials">
+<a aria-label="Instagram" class="social-btn" href="https://instagram.com" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" class="social-svg" viewbox="0 0 24 24">
+<path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 12 3.5 3.5 0 0 0 12 10.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"></path>
+</svg>
+</a>
+<a aria-label="TikTok" class="social-btn" href="https://tiktok.com" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" class="social-svg" viewbox="0 0 24 24">
+<path d="M16.5 3a6.6 6.6 0 0 0 4.5 2v3.2a9.9 9.9 0 0 1-4.5-1.3v7.1c0 4-3.2 7.2-7.2 7.2S2.1 19.9 2.1 15.9s3.2-7.2 7.2-7.2c.4 0 .8 0 1.2.1v3.3c-.4-.1-.8-.2-1.2-.2-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4V3h3z"></path>
+</svg>
+</a>
+</div>
+</main>
+
+<script src="js/common.js"></script><script src="js/ranking.js"></script></body>
+</html>

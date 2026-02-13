@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Arena Battle — 1X1 ARENA</title>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <link href="css/battle.css" rel="stylesheet"/>
+  <link href="css/mobile.css" rel="stylesheet"/>
+</head>
+
+<body>
+  <div aria-hidden="true" class="bg bg--battle">
+    <div class="bg__image" style="background-image:url('assets/bg-battle.jpg')"></div>
+    <div class="bg__overlay"></div>
+    <div class="bg__vignette"></div>
+    <div class="bg__grid"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a aria-label="Retour à l'accueil" class="brand" href="index.html">
+        <img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__btn" href="arena-tournament.html"><span>Arena Tournament</span></a>
+        <a class="nav__btn is-active" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+      </nav>
+
+      <button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navmobile" hidden>
+      <a class="navmobile__link" href="arena-tournament.html">Arena Tournament</a>
+      <a class="navmobile__link is-active" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero hero--battle">
+      <div class="hero__grid hero__grid--battle">
+        <div class="hero__copy">
+          <h1 class="h1">Arena <span class="grad">Battle</span></h1>
+
+          <div class="battle__sub">
+            <p class="lead lead--battle">
+              Le duel signature. Un affrontement 1v1 où le <span class="grad2">palmarès</span>, l’<span class="grad2">intensité</span> et le <span class="grad2">show</span> deviennent une seule scène.
+            </p>
+
+            <div class="battle__badges">
+              <span class="pill pill--strong"><i class="dot dot--p"></i>Défense de titre</span>
+              <span class="pill"><i class="dot dot--b"></i>Storyline &amp; rivalités</span>
+              <span class="pill"><i class="dot dot--w"></i>Énergie combat / NBA</span>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a class="btn btn--primary" href="#concept">Comprendre Arena Battle</a>
+            <a class="btn btn--ghost" href="#gallery">Voir la galerie</a>
+          </div>
+
+          <div class="battle__meta">
+            <div class="metaCard"><div class="metaCard__k">Format</div><div class="metaCard__v">1V1 • Main Event</div></div>
+            <div class="metaCard"><div class="metaCard__k">Objectif</div><div class="metaCard__v">Titre • Respect</div></div>
+            <div class="metaCard"><div class="metaCard__k">Style</div><div class="metaCard__v">Show • Story</div></div>
+          </div>
+        </div>
+
+        <aside aria-label="Concept Battle" class="highlight highlight--battle">
+          <div class="highlight__top">
+            <span class="tag">MAIN EVENT</span>
+            <span class="tag tag--ghost">ARENA • BATTLE</span>
+          </div>
+
+          <div class="highlight__media">
+            <video autoplay class="highlight__video" loop muted playsinline preload="metadata">
+              <source src="assets/teaser.mp4" type="video/mp4"/>
+            </video>
+            <div aria-hidden="true" class="imgGlow"></div>
+          </div>
+
+          <div class="highlight__cap highlight__cap--battle">
+            <div class="kpi"><div class="kpi__label">Focus</div><div class="kpi__value">Rivalité</div></div>
+            <div class="kpi"><div class="kpi__label">Rythme</div><div class="kpi__value">Explosif</div></div>
+            <div class="kpi"><div class="kpi__label">Final</div><div class="kpi__value">Ceinture</div></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--battle" id="concept">
+      <div class="section__head">
+        <h2 class="h2">Le concept Arena Battle</h2>
+        <p class="muted">Une expérience premium pensée comme un main event : tension, narration, et impact.</p>
+      </div>
+
+      <div class="battleGrid">
+        <article class="battleCard">
+          <div class="battleCard__icon">01</div>
+          <h3>Le champion défend</h3>
+          <p>Le champion de sa catégorie arrive avec une cible dans le dos. Chaque Battle est une défense de statut : rien n’est acquis.</p>
+        </article>
+
+        <article class="battleCard">
+          <div class="battleCard__icon">02</div>
+          <h3>Une storyline claire</h3>
+          <p>Comme en sports de combat : rivalité, enjeux, respect. Le public comprend tout en quelques secondes… puis retient le moment.</p>
+        </article>
+
+        <article class="battleCard">
+          <div class="battleCard__icon">03</div>
+          <h3>Show à l’américaine</h3>
+          <p>L’énergie NBA + l’intensité UFC : annonce, rythme, highlights et aura. Un duel = une scène.</p>
+        </article>
+
+        <article class="battleCard battleCard--wide">
+          <div class="battleCard__wideInner">
+            <div>
+              <div class="chip chip--ghost">RÈGLE D’OR</div>
+              <h3 class="battleBig">1 contre 1. Un seul vainqueur.</h3>
+              <p class="muted">Arena Battle met en avant le palmarès, l’image et la performance. Pas de distraction : le duel parle.</p>
+            </div>
+            <div class="battleStat">
+              <div class="battleStat__n">1V1</div>
+              <div class="battleStat__t">Main Event</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ✅ GALERIE (elle est bien là) -->
+    <section class="section section--gallery" id="gallery">
+      <div class="section__head">
+        <h2 class="h2">Galerie</h2>
+        <p class="muted">Highlights, ceinture, interviews, action. L’arène en mouvement.</p>
+      </div>
+
+      <div aria-label="Galerie photo défilante" class="marquee">
+        <div class="marquee__track">
+          <div class="marquee__set">
+            <figure class="mItem"><img alt="Action 1X1" loading="lazy" src="assets/battle-071.jpg"/></figure>
+            <figure class="mItem"><img alt="Ceinture &amp; interview" loading="lazy" src="assets/battle-073.jpg"/></figure>
+            <figure class="mItem"><img alt="Duel 1 contre 1" loading="lazy" src="assets/battle-007.jpg"/></figure>
+            <figure class="mItem"><img alt="Dunk &amp; intensité" loading="lazy" src="assets/battle-129.jpg"/></figure>
+            <figure class="mItem"><img alt="Champion" loading="lazy" src="assets/battle-171.jpg"/></figure>
+          </div>
+
+          <div aria-hidden="true" class="marquee__set">
+            <figure class="mItem"><img alt="" loading="lazy" src="assets/battle-071.jpg"/></figure>
+            <figure class="mItem"><img alt="" loading="lazy" src="assets/battle-073.jpg"/></figure>
+            <figure class="mItem"><img alt="" loading="lazy" src="assets/battle-007.jpg"/></figure>
+            <figure class="mItem"><img alt="" loading="lazy" src="assets/battle-129.jpg"/></figure>
+            <figure class="mItem"><img alt="" loading="lazy" src="assets/battle-171.jpg"/></figure>
+          </div>
+        </div>
+      </div>
+
+      <div class="galleryCTA">
+        <div class="galleryCTA__card">
+          <div class="galleryCTA__copy">
+            <div class="chip chip--ghost">L’ARÈNE APPELLE</div>
+            <h3>Prêt à entrer dans la Battle ?</h3>
+            <p class="muted">Un duel, une histoire, un moment. Arena Battle, c’est l’élite mise en lumière.</p>
+          </div>
+          <div class="galleryCTA__actions">
+            <a class="btn btn--ghost" href="ranking.html">Voir le ranking</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">1X1 ARENA</div>
+        <div class="footer__links">
+          <a href="arena-tournament.html">Arena Tournament</a>
+          <a href="arena-battle.html">Arena Battle</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+      </div>
+    </footer>
+
+    <div class="socials">
+      <a aria-label="Instagram" class="social-btn" href="https://instagram.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 12 3.5 3.5 0 0 0 12 10.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"></path>
+        </svg>
+      </a>
+
+      <a aria-label="TikTok" class="social-btn" href="https://tiktok.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M16.5 3a6.6 6.6 0 0 0 4.5 2v3.2a9.9 9.9 0 0 1-4.5-1.3v7.1c0 4-3.2 7.2-7.2 7.2S2.1 19.9 2.1 15.9s3.2-7.2 7.2-7.2c.4 0 .8 0 1.2.1v3.3c-.4-.1-.8-.2-1.2-.2-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4V3h3z"></path>
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+</body>
+</html>

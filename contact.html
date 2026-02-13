@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — 1X1 ARENA</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/ranking.css" />
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body>
+
+  <!-- Background -->
+  <div class="bg bg--ranking" aria-hidden="true">
+    <div class="bg__image"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html" aria-label="Retour à l'accueil">
+        <img class="brand__logo" src="assets/Logo-1x1.png" alt="1X1 Arena">
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__btn" href="arena-tournament.html"><span>Arena Tournament</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+      </nav>
+
+      <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navmobile" hidden>
+      <a class="navmobile__link" href="arena-tournament.html">Arena Tournament</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+      <a class="navmobile__link is-active" href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero hero--ranking">
+      <div class="hero__grid hero__grid--ranking">
+        <div class="hero__copy">
+          <div class="chip">CONTACT</div>
+          <h1 class="h1">Parlons<span class="grad"> ensemble</span></h1>
+          <p class="p hero__p">Une question, une demande de partenariat ou un message pour l'équipe ?</p>
+
+          <div class="contactCard">
+            <form id="contactForm" class="contactForm">
+              <div class="fieldRow">
+                <label class="field">
+                  <span>Nom</span>
+                  <input name="name" type="text" autocomplete="name" required placeholder="Votre nom" />
+                </label>
+                <label class="field">
+                  <span>Email</span>
+                  <input name="email" type="email" autocomplete="email" required placeholder="votre@email.com" />
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Sujet</span>
+                <input name="subject" type="text" required placeholder="Objet de votre message" />
+              </label>
+
+              <label class="field">
+                <span>Message</span>
+                <textarea name="message" rows="6" required placeholder="Écrivez votre message..."></textarea>
+              </label>
+
+              <div class="contactActions">
+                <button class="btn btn--primary" type="submit">Envoyer</button>
+                <a class="btn btn--ghost" href="mailto:Onexone.arena@gmail.com">Écrire via votre mail</a>
+              </div>
+
+              <p class="contactHint">L'envoi ouvre votre application mail et prépare un message vers <strong>Onexone.arena@gmail.com</strong>.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">1X1 ARENA</div>
+        <div class="footer__links">
+          <a href="arena-tournament.html">Arena Tournament</a>
+          <a href="arena-battle.html">Arena Battle</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
