@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Admin — 1X1 ARENA</title>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <link href="css/ranking.css" rel="stylesheet"/>
+  <link href="css/mobile.css" rel="stylesheet"/>
+
+  <style>
+    /* ===== SELF-SUFFICIENT BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0d0008 !important; color: #fff !important; font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+    .page { position: relative; z-index: 1; }
+    .bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .bg__image { position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 50%, rgba(220,0,100,.15) 0%, transparent 60%), #0d0008; }
+    .bg__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 40px 40px; }
+    .bg__vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.7) 100%); }
+    .topbar { position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100; width: calc(100% - 48px); max-width: 960px; background: rgba(13,0,8,.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.1); border-radius: 999px; padding: 10px 20px; }
+    .topbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .brand__logo { width: 32px; height: 32px; object-fit: contain; }
+    .brand__name { font-size: .85rem; font-weight: 900; color: #fff; letter-spacing: .06em; }
+    .nav { display: flex; gap: 6px; align-items: center; }
+    .nav__btn { display: flex; align-items: center; padding: 7px 16px; border-radius: 999px; border: 1px solid transparent; color: rgba(255,255,255,.65); font-size: .82rem; font-weight: 600; text-decoration: none; transition: color .2s, border-color .2s, background .2s; }
+    .nav__btn:hover { color: #fff; border-color: rgba(255,255,255,.2); background: rgba(255,255,255,.06); }
+    .nav__burger { display: none; }
+    .navmobile[hidden] { display: none; }
+    .navmobile { display: flex; flex-direction: column; gap: 4px; padding: 12px 8px 8px; }
+    .navmobile__link { color: rgba(255,255,255,.7); text-decoration: none; font-size: .9rem; font-weight: 600; padding: 10px 14px; border-radius: 10px; }
+    .h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: #fff; line-height: 1.05; letter-spacing: -.02em; }
+    .h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; color: #fff; }
+    .grad { background: linear-gradient(135deg, #dc0064 0%, #ff3399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .muted { color: rgba(255,255,255,.45); font-size: .95rem; line-height: 1.6; }
+    .chip { display: inline-block; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #dc0064; border: 1px solid rgba(220,0,100,.35); border-radius: 999px; padding: 4px 14px; margin-bottom: 14px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 999px; font-family: inherit; font-size: .88rem; font-weight: 700; text-decoration: none; border: none; cursor: pointer; transition: opacity .2s; }
+    .btn:hover { opacity: .85; }
+    .btn--primary { background: linear-gradient(135deg, #dc0064, #ff3399); color: #fff; }
+    .btn--ghost { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); color: #fff; }
+    .section__head { margin-bottom: 36px; }
+    .footer { background: rgba(0,0,0,.5); border-top: 1px solid rgba(255,255,255,.06); padding: 28px 24px; }
+    .footer__inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .footer__brand { font-size: .85rem; font-weight: 900; color: #fff; letter-spacing: .08em; }
+    .footer__links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer__links a { color: rgba(255,255,255,.4); font-size: .82rem; text-decoration: none; }
+    .footer__links a:hover { color: #fff; }
+    .footer__copy { color: rgba(255,255,255,.25); font-size: .78rem; }
+    @media (max-width: 768px) { .nav { display: none; } .nav__burger { display: flex !important; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 6px; } .nav__burger span { display: block; height: 2px; width: 22px; background: #fff; border-radius: 2px; } .topbar { border-radius: 18px; top: 10px; width: calc(100% - 24px); } }
+  </style>
+
+  <style>
+    /* ===== ADMIN PAGE STYLES ===== */
+
+    .bg--ranking .bg__image {
+      background: radial-gradient(ellipse at 20% 50%, rgba(220,0,100,.1) 0%, transparent 60%);
+    }
+
+    /* ---- LOGIN SCREEN ---- */
+    .loginScreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 24px;
+    }
+    .loginBox {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+    .loginBox h2 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .loginBox p {
+      color: rgba(255,255,255,.4);
+      font-size: .85rem;
+      margin-bottom: 28px;
+    }
+    .loginBox input {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: .95rem;
+      padding: 13px 16px;
+      outline: none;
+      margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .loginBox input:focus { border-color: #dc0064; }
+    .loginBox input::placeholder { color: rgba(255,255,255,.22); }
+    .loginErr {
+      color: #ff5050;
+      font-size: .82rem;
+      margin-top: -8px;
+      margin-bottom: 14px;
+      display: none;
+    }
+
+    /* ---- ADMIN LAYOUT ---- */
+    .admin { display: none; }
+    .admin.show { display: block; }
+
+    .adminHero {
+      padding: 120px 24px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .adminHero__row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    /* ---- STATS ROW ---- */
+    .statsRow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+    .statCard {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .statCard__label {
+      font-size: .72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .statCard__val {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .statCard__val span {
+      font-size: 1rem;
+      color: #dc0064;
+      font-weight: 700;
+    }
+
+    /* ---- TOOLBAR ---- */
+    .adminToolbar {
+      max-width: 1100px;
+      margin: 0 auto 20px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .seg {
+      display: flex;
+      background: rgba(255,255,255,.05);
+      border-radius: 999px;
+      padding: 4px;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .seg__btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,.5);
+      font-family: inherit;
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+    }
+    .seg__btn.is-active, .seg__btn:hover {
+      background: #dc0064;
+      color: #fff;
+    }
+    .adminSearch {
+      flex: 1;
+      min-width: 180px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      color: #fff;
+      font-family: inherit;
+      font-size: .85rem;
+      padding: 8px 18px;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .adminSearch:focus { border-color: #dc0064; }
+    .adminSearch::placeholder { color: rgba(255,255,255,.25); }
+    .exportBtn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff;
+      font-family: inherit;
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .exportBtn:hover {
+      background: rgba(220,0,100,.2);
+      border-color: #dc0064;
+    }
+
+    /* ---- TABLE ---- */
+    .adminTableWrap {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .adminTable {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    .adminTable thead tr {
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .adminTable th {
+      font-size: .72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      white-space: nowrap;
+    }
+    .adminTable tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      transition: background .15s;
+    }
+    .adminTable tbody tr:hover {
+      background: rgba(255,255,255,.03);
+    }
+    .adminTable td {
+      padding: 13px 14px;
+      font-size: .87rem;
+      color: rgba(255,255,255,.75);
+      vertical-align: middle;
+    }
+    .adminTable td:first-child {
+      color: #fff;
+      font-weight: 700;
+    }
+    .typeBadge {
+      font-size: .68rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 99px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .typeBadge--tournament {
+      background: rgba(0,120,255,.15);
+      color: #5badff;
+      border: 1px solid rgba(0,120,255,.3);
+    }
+    .typeBadge--battle {
+      background: rgba(220,0,100,.15);
+      color: #ff3399;
+      border: 1px solid rgba(220,0,100,.3);
+    }
+    .catBadge {
+      font-size: .72rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+    }
+    .delBtn {
+      background: none;
+      border: 1px solid rgba(255,80,80,.25);
+      color: rgba(255,80,80,.6);
+      font-family: inherit;
+      font-size: .75rem;
+      padding: 4px 12px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .delBtn:hover {
+      background: rgba(255,80,80,.15);
+      color: #ff5050;
+    }
+    .emptyState {
+      text-align: center;
+      padding: 60px 24px;
+      color: rgba(255,255,255,.3);
+      font-size: .95rem;
+    }
+    .emptyState strong { color: rgba(255,255,255,.6); display: block; margin-bottom: 8px; font-size: 1.1rem; }
+
+    /* ---- CALENDAR EDITOR ---- */
+    .calEditor {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+    .calEditor__form {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto auto;
+      gap: 12px;
+      align-items: end;
+    }
+    .calEditor .field span {
+      font-size: .72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .calEditor .field input,
+    .calEditor .field select {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: .88rem;
+      padding: 11px 13px;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    .calEditor .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+    }
+    .calEditor .field select option { background: #1a0010; }
+    .calEditor .field input:focus,
+    .calEditor .field select:focus { border-color: #dc0064; }
+    .calEditor .field input::placeholder { color: rgba(255,255,255,.22); }
+
+    .eventList { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+    .eventRow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 12px 16px;
+      flex-wrap: wrap;
+    }
+    .eventRow__date {
+      font-size: .78rem;
+      font-weight: 800;
+      color: #dc0064;
+      min-width: 80px;
+    }
+    .eventRow__name { flex: 1; font-size: .9rem; font-weight: 600; color: #fff; }
+    .eventRow__loc { font-size: .8rem; color: rgba(255,255,255,.4); }
+
+    /* Logout */
+    .logoutBtn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      color: rgba(255,255,255,.5);
+      font-family: inherit;
+      font-size: .78rem;
+      padding: 7px 16px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .logoutBtn:hover {
+      background: rgba(255,80,80,.15);
+      border-color: rgba(255,80,80,.3);
+      color: #ff5050;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 700px) {
+      .calEditor__form {
+        grid-template-columns: 1fr 1fr;
+      }
+      .statsRow { grid-template-columns: 1fr 1fr; }
+      .adminHero { padding-top: 100px; }
+    }
+    @media (max-width: 480px) {
+      .calEditor__form { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div aria-hidden="true" class="bg bg--ranking">
+    <div class="bg__image"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <!-- LOGIN SCREEN -->
+  <div class="loginScreen" id="loginScreen">
+    <div class="loginBox">
+      <h2>Admin 1X1 ARENA</h2>
+      <p>Accès réservé à l'équipe organisatrice</p>
+      <input type="text" id="loginUser" placeholder="Identifiant" autocomplete="username"/>
+      <input type="password" id="loginPass" placeholder="Mot de passe" autocomplete="current-password"/>
+      <div class="loginErr" id="loginErr">Identifiant ou mot de passe incorrect.</div>
+      <button class="btn btn--primary" style="width:100%;justify-content:center;" onclick="doLogin()">Connexion</button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a aria-label="Retour à l'accueil" class="brand" href="index.html">
+        <img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+      <nav class="nav">
+        <a class="nav__btn" href="arena-tournament.html"><span>Arena Tournament</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+      </nav>
+      <button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="navmobile" hidden>
+      <a class="navmobile__link" href="arena-tournament.html">Arena Tournament</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+    </div>
+  </header>
+
+  <main class="page admin" id="adminPanel">
+
+    <!-- HERO -->
+    <div class="adminHero">
+      <div class="adminHero__row">
+        <div>
+          <div class="chip">BACK-OFFICE</div>
+          <h1 class="h1" style="font-size:2.4rem;">Dashboard <span class="grad">Admin</span></h1>
+        </div>
+        <button class="logoutBtn" onclick="doLogout()">⬅ Déconnexion</button>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="statsRow" id="statsRow">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="adminToolbar">
+      <div class="seg" role="tablist">
+        <button class="seg__btn is-active" data-filter="all" onclick="setFilter('all', this)">Tous</button>
+        <button class="seg__btn" data-filter="tournament" onclick="setFilter('tournament', this)">Tournament</button>
+        <button class="seg__btn" data-filter="battle" onclick="setFilter('battle', this)">Battle</button>
+      </div>
+      <input class="adminSearch" type="search" placeholder="Rechercher un joueur..." oninput="filterSearch(this.value)"/>
+      <button class="exportBtn" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="exportBtn" onclick="clearAll()" style="border-color:rgba(255,80,80,.3);color:rgba(255,80,80,.7);">🗑 Tout effacer</button>
+    </div>
+
+    <!-- TABLE -->
+    <div class="adminTableWrap">
+      <table class="adminTable" id="adminTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Joueur</th>
+            <th>Contact</th>
+            <th>Catégorie</th>
+            <th>Format</th>
+            <th>Niveau</th>
+            <th>Date inscription</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="adminRows"></tbody>
+      </table>
+      <div class="emptyState" id="emptyState" style="display:none;">
+        <strong>Aucune inscription pour l'instant</strong>
+        Les joueurs qui s'inscrivent via la page inscription apparaissent ici en temps réel.
+      </div>
+    </div>
+
+    <!-- CALENDAR EDITOR -->
+    <div class="calEditor">
+      <div class="section__head" style="max-width:100%;margin-bottom:24px;">
+        <h2 class="h2" style="font-size:1.6rem;">Gestion du calendrier</h2>
+        <p class="muted">Ajoute ou supprime des dates d'événements. Les dates s'affichent automatiquement sur la page inscription.</p>
+      </div>
+
+      <div class="calEditor__form">
+        <div class="field">
+          <span>Date</span>
+          <input type="date" id="evDate"/>
+        </div>
+        <div class="field">
+          <span>Nom de l'événement</span>
+          <input type="text" id="evName" placeholder="ex : Arena Tournament #3"/>
+        </div>
+        <div class="field">
+          <span>Format</span>
+          <select id="evType">
+            <option value="tournament">Tournament</option>
+            <option value="battle">Battle</option>
+          </select>
+        </div>
+        <div class="field">
+          <span>Lieu</span>
+          <input type="text" id="evLoc" placeholder="ex : Paris"/>
+        </div>
+        <div style="display:flex;align-items:flex-end;">
+          <button class="btn btn--primary" style="white-space:nowrap;" onclick="addEvent()">+ Ajouter</button>
+        </div>
+      </div>
+
+      <div class="eventList" id="eventList"></div>
+
+      <p class="muted" style="margin-top:16px;font-size:.8rem;">
+        ⚡ Les événements sont stockés localement. Pour les rendre visibles sur la page inscription des autres utilisateurs, copiez le tableau <code style="color:#dc0064;">EVENTS</code> dans <code style="color:#dc0064;">inscription.html</code>.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">1X1 ARENA</div>
+        <div class="footer__links">
+          <a href="arena-tournament.html">Arena Tournament</a>
+          <a href="arena-battle.html">Arena Battle</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script>
+    /* =========================================================
+       AUTH — change credentials here
+       ========================================================= */
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = '1x1arena2026'; // ← change this password
+
+    function doLogin() {
+      const u = document.getElementById('loginUser').value.trim();
+      const p = document.getElementById('loginPass').value;
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminPanel').classList.add('show');
+        sessionStorage.setItem('1x1_auth', '1');
+        renderAdmin();
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+      }
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    function doLogout() {
+      sessionStorage.removeItem('1x1_auth');
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('adminPanel').classList.remove('show');
+    }
+
+    // Auto-login if session active
+    if (sessionStorage.getItem('1x1_auth')) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').classList.add('show');
+    }
+
+    /* =========================================================
+       DATA
+       ========================================================= */
+    function getInscs() {
+      return JSON.parse(localStorage.getItem('1x1_inscriptions') || '[]');
+    }
+    function saveInscs(arr) {
+      localStorage.setItem('1x1_inscriptions', JSON.stringify(arr));
+    }
+    function getEvents() {
+      return JSON.parse(localStorage.getItem('1x1_events') || '[]');
+    }
+    function saveEvents(arr) {
+      localStorage.setItem('1x1_events', JSON.stringify(arr));
+    }
+
+    /* =========================================================
+       RENDER TABLE
+       ========================================================= */
+    const MONTHS_FR = ['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Aoû','Sep','Oct','Nov','Déc'];
+    const CAT_LABELS = { lil:'Lil Height', welter:'Welter Height', big:'Big Height', womens:'Womens Div.' };
+    const LEVEL_LABELS = { debutant:'Débutant', intermediate:'Intermédiaire', avance:'Avancé', elite:'Élite' };
+
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    function renderAdmin() {
+      const data = getInscs();
+      renderStats(data);
+      renderTable(data);
+      renderEvents();
+    }
+
+    function renderStats(data) {
+      const total = data.length;
+      const tour = data.filter(d => d.eventType === 'tournament').length;
+      const bat = data.filter(d => d.eventType === 'battle').length;
+      const cats = {};
+      data.forEach(d => { cats[d.category] = (cats[d.category] || 0) + 1; });
+      const topCat = Object.entries(cats).sort((a,b) => b[1]-a[1])[0];
+
+      document.getElementById('statsRow').innerHTML = `
+        <div class="statCard"><div class="statCard__label">Total inscrits</div><div class="statCard__val">${total}</div></div>
+        <div class="statCard"><div class="statCard__label">Tournament</div><div class="statCard__val">${tour} <span>/${total}</span></div></div>
+        <div class="statCard"><div class="statCard__label">Battle</div><div class="statCard__val">${bat} <span>/${total}</span></div></div>
+        <div class="statCard"><div class="statCard__label">Catégorie #1</div><div class="statCard__val" style="font-size:1.1rem;padding-top:6px;">${topCat ? CAT_LABELS[topCat[0]] || topCat[0] : '—'}</div></div>
+      `;
+    }
+
+    function renderTable(data) {
+      let filtered = data;
+      if (currentFilter !== 'all') filtered = filtered.filter(d => d.eventType === currentFilter);
+      if (currentSearch) {
+        const q = currentSearch.toLowerCase();
+        filtered = filtered.filter(d =>
+          (d.firstName + ' ' + d.lastName + ' ' + (d.pseudo || '')).toLowerCase().includes(q)
+        );
+      }
+
+      const tbody = document.getElementById('adminRows');
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        document.getElementById('emptyState').style.display = 'block';
+        document.getElementById('adminTable').style.display = 'none';
+        return;
+      }
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('adminTable').style.display = 'table';
+
+      filtered.slice().reverse().forEach((p, i) => {
+        const d = new Date(p.timestamp);
+        const dateStr = `${d.getDate()} ${MONTHS_FR[d.getMonth()]} ${d.getFullYear()}`;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${filtered.length - i}</td>
+          <td>
+            <strong>${p.firstName} ${p.lastName}</strong>
+            ${p.pseudo ? `<br><span style="font-size:.78rem;color:rgba(255,255,255,.35);">"${p.pseudo}"</span>` : ''}
+          </td>
+          <td>
+            <a href="mailto:${p.email}" style="color:#dc0064;text-decoration:none;">${p.email}</a>
+            <br><span style="font-size:.78rem;color:rgba(255,255,255,.35);">${p.phone || '—'}</span>
+          </td>
+          <td><span class="catBadge">${CAT_LABELS[p.category] || p.category || '—'}</span></td>
+          <td><span class="typeBadge typeBadge--${p.eventType}">${p.eventType === 'battle' ? 'Battle' : 'Tournament'}</span></td>
+          <td>${LEVEL_LABELS[p.level] || p.level || '—'}</td>
+          <td style="font-size:.8rem;color:rgba(255,255,255,.4);">${dateStr}</td>
+          <td><button class="delBtn" onclick="deleteInsc('${p.id}')">Supprimer</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function deleteInsc(id) {
+      if (!confirm('Supprimer cette inscription ?')) return;
+      const arr = getInscs().filter(d => d.id !== id);
+      saveInscs(arr);
+      renderAdmin();
+    }
+
+    function clearAll() {
+      if (!confirm('Supprimer TOUTES les inscriptions ? Cette action est irréversible.')) return;
+      saveInscs([]);
+      renderAdmin();
+    }
+
+    function setFilter(val, btn) {
+      currentFilter = val;
+      document.querySelectorAll('.seg__btn').forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      renderAdmin();
+    }
+
+    function filterSearch(val) {
+      currentSearch = val;
+      renderTable(getInscs());
+    }
+
+    /* =========================================================
+       EXPORT CSV
+       ========================================================= */
+    function exportCSV() {
+      const data = getInscs();
+      if (!data.length) { alert('Aucune inscription à exporter.'); return; }
+      const headers = ['Prénom','Nom','Pseudo','Email','Téléphone','Format','Catégorie','Niveau','Club','Date'];
+      const rows = data.map(d => [
+        d.firstName, d.lastName, d.pseudo||'', d.email, d.phone||'',
+        d.eventType, d.category, d.level, d.club||'',
+        new Date(d.timestamp).toLocaleDateString('fr-FR')
+      ]);
+      const csv = [headers, ...rows].map(r => r.map(c => `"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csv);
+      a.download = `inscriptions-1x1arena-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+    }
+
+    /* =========================================================
+       CALENDAR EDITOR
+       ========================================================= */
+    function addEvent() {
+      const date = document.getElementById('evDate').value;
+      const name = document.getElementById('evName').value.trim();
+      const type = document.getElementById('evType').value;
+      const loc  = document.getElementById('evLoc').value.trim();
+      if (!date || !name) { alert('Date et nom obligatoires.'); return; }
+      const evs = getEvents();
+      evs.push({ id: Date.now().toString(), date, name, type, location: loc });
+      evs.sort((a,b) => a.date.localeCompare(b.date));
+      saveEvents(evs);
+      document.getElementById('evDate').value = '';
+      document.getElementById('evName').value = '';
+      document.getElementById('evLoc').value = '';
+      renderEvents();
+    }
+
+    function deleteEvent(id) {
+      saveEvents(getEvents().filter(e => e.id !== id));
+      renderEvents();
+    }
+
+    function renderEvents() {
+      const evs = getEvents();
+      const list = document.getElementById('eventList');
+      list.innerHTML = '';
+      if (!evs.length) {
+        list.innerHTML = '<p class="muted" style="font-size:.85rem;">Aucun événement ajouté. Les événements ajoutés ici s\'afficheront dans le calendrier de la page inscription.</p>';
+        return;
+      }
+      evs.forEach(ev => {
+        const d = new Date(ev.date);
+        const el = document.createElement('div');
+        el.className = 'eventRow';
+        el.innerHTML = `
+          <div class="eventRow__date">${d.getDate()} ${MONTHS_FR[d.getMonth()]} ${d.getFullYear()}</div>
+          <div class="eventRow__name">${ev.name}</div>
+          <div class="eventRow__loc">${ev.location || ''}</div>
+          <span class="typeBadge typeBadge--${ev.type}">${ev.type === 'battle' ? 'Battle' : 'Tournament'}</span>
+          <button class="delBtn" onclick="deleteEvent('${ev.id}')">Supprimer</button>
+        `;
+        list.appendChild(el);
+      });
+    }
+
+    /* =========================================================
+       LIVE SYNC — refresh every 30s for real-time feel
+       ========================================================= */
+    setInterval(() => {
+      if (sessionStorage.getItem('1x1_auth')) renderAdmin();
+    }, 30000);
+
+    // Initial render if already logged in
+    if (sessionStorage.getItem('1x1_auth')) renderAdmin();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Inscription — 1X1 ARENA</title>
+
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+  <link href="css/ranking.css" rel="stylesheet"/>
+  <link href="css/mobile.css" rel="stylesheet"/>
+
+  <style>
+    /* ===== SELF-SUFFICIENT BASE — dark theme guaranteed even without ranking.css ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #0d0008;
+      color: #fff;
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Page wrapper */
+    .page { position: relative; z-index: 1; }
+
+    /* Background layers */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg__image {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(220,0,100,.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(140,0,60,.12) 0%, transparent 55%),
+        #0d0008;
+    }
+    .bg__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .bg__vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,.7) 100%);
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: calc(100% - 48px);
+      max-width: 960px;
+      background: rgba(13,0,8,.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 999px;
+      padding: 10px 20px;
+    }
+    .topbar__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .brand__logo { width: 32px; height: 32px; object-fit: contain; }
+    .brand__name {
+      font-size: .85rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: .06em;
+    }
+    .nav { display: flex; gap: 6px; align-items: center; }
+    .nav__btn {
+      display: flex;
+      align-items: center;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: rgba(255,255,255,.65);
+      font-size: .82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .nav__btn:hover, .nav__btn.is-active {
+      color: #fff;
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.06);
+    }
+    .nav__btn.is-active { border-color: #dc0064; color: #ff3399; }
+
+    /* Burger (hidden desktop) */
+    .nav__burger { display: none; }
+
+    /* Mobile nav */
+    .navmobile[hidden] { display: none; }
+    .navmobile {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 8px 8px;
+    }
+    .navmobile__link {
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: background .15s, color .15s;
+    }
+    .navmobile__link:hover, .navmobile__link.is-active {
+      background: rgba(220,0,100,.15);
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero--ranking {
+      min-height: 30vh;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Typography */
+    .h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+    .h2 {
+      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -.01em;
+    }
+    .grad { background: linear-gradient(135deg, #dc0064 0%, #ff3399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .grad2 { background: linear-gradient(135deg, #ff3399, #ff80c0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .muted { color: rgba(255,255,255,.45); font-size: .95rem; line-height: 1.6; }
+    .p { color: rgba(255,255,255,.7); font-size: 1rem; line-height: 1.7; }
+    .chip {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #dc0064;
+      border: 1px solid rgba(220,0,100,.35);
+      border-radius: 999px;
+      padding: 4px 14px;
+      margin-bottom: 14px;
+    }
+
+    /* Section head */
+    .section__head { margin-bottom: 36px; }
+    .section__head h2 { margin-bottom: 8px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 26px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn--primary { background: linear-gradient(135deg, #dc0064, #ff3399); color: #fff; }
+    .btn--ghost { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18); color: #fff; }
+
+    /* Footer */
+    .footer {
+      background: rgba(0,0,0,.5);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 28px 24px;
+    }
+    .footer__inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer__brand { font-size: .85rem; font-weight: 900; color: #fff; letter-spacing: .08em; }
+    .footer__links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer__links a { color: rgba(255,255,255,.4); font-size: .82rem; text-decoration: none; transition: color .2s; }
+    .footer__links a:hover { color: #fff; }
+    .footer__copy { color: rgba(255,255,255,.25); font-size: .78rem; }
+
+    /* Socials */
+    .socials {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 50;
+    }
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #dc0064, #ff3399);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-decoration: none;
+      transition: transform .2s, opacity .2s;
+    }
+    .social-btn:hover { transform: scale(1.1); opacity: .9; }
+    .social-svg { width: 18px; height: 18px; fill: #fff; }
+
+    /* ===== INSCRIPTION-SPECIFIC STYLES ===== */
+    /* Background override */
+    .bg--ranking .bg__image {
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(220,0,100,.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(140,0,60,.12) 0%, transparent 55%),
+        #0d0008;
+    }
+
+    /* ---- HERO ---- */
+    .hero--insc {
+      min-height: 40vh;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 0;
+    }
+    .hero__grid--insc {
+      width: 100%;
+      padding: 120px 24px 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* ---- CALENDAR SECTION ---- */
+    .section--calendar {
+      padding: 64px 24px 0;
+    }
+    .calWrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .calHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .calTitle {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .calNav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .calNav__btn {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+    .calNav__btn:hover {
+      background: rgba(220,0,100,.25);
+      border-color: #dc0064;
+    }
+    .calMonth {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      min-width: 140px;
+      text-align: center;
+      letter-spacing: .04em;
+    }
+    .calGrid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .calGrid__day {
+      text-align: center;
+      font-size: .72rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.35);
+      padding: 8px 0 6px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .calCell {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: .85rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.45);
+      background: rgba(255,255,255,.03);
+      border: 1px solid transparent;
+      cursor: default;
+      transition: background .2s;
+      position: relative;
+      min-height: 40px;
+    }
+    .calCell--empty {
+      background: transparent;
+      border-color: transparent;
+    }
+    .calCell--today {
+      border-color: rgba(255,255,255,.2);
+      color: #fff;
+      font-weight: 700;
+    }
+    .calCell--event {
+      background: rgba(220,0,100,.18);
+      border-color: #dc0064;
+      color: #ff3399;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .calCell--event:hover {
+      background: rgba(220,0,100,.35);
+    }
+    .calCell--event::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #dc0064;
+    }
+
+    /* Event legend */
+    .calLegend {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .calEvent {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-left: 3px solid #dc0064;
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .calEvent__date {
+      font-size: .75rem;
+      font-weight: 800;
+      color: #dc0064;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      min-width: 70px;
+    }
+    .calEvent__info { flex: 1; }
+    .calEvent__name {
+      font-size: .9rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .calEvent__sub {
+      font-size: .78rem;
+      color: rgba(255,255,255,.45);
+      margin-top: 2px;
+    }
+    .calEvent__tag {
+      font-size: .7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 99px;
+      background: rgba(220,0,100,.2);
+      color: #ff3399;
+      border: 1px solid rgba(220,0,100,.4);
+      white-space: nowrap;
+    }
+
+    /* TBD / no date notice */
+    .calNotice {
+      margin-top: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px dashed rgba(255,255,255,.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      text-align: center;
+      color: rgba(255,255,255,.45);
+      font-size: .9rem;
+    }
+    .calNotice strong { color: #fff; }
+
+    /* ---- FORM SECTION ---- */
+    .section--form {
+      padding: 64px 24px 80px;
+    }
+    .formWrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Type selector */
+    .typeSelector {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .typeCard {
+      position: relative;
+      cursor: pointer;
+    }
+    .typeCard input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .typeCard__label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 20px 22px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .typeCard input:checked + .typeCard__label {
+      border-color: #dc0064;
+      background: rgba(220,0,100,.1);
+    }
+    .typeCard__label:hover {
+      border-color: rgba(220,0,100,.5);
+    }
+    .typeCard__name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .03em;
+    }
+    .typeCard__desc {
+      font-size: .8rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.4;
+    }
+    .typeCard__badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 99px;
+      background: rgba(220,0,100,.2);
+      color: #ff3399;
+      border: 1px solid rgba(220,0,100,.4);
+      width: fit-content;
+    }
+
+    /* Form fields — reuse contact style + additions */
+    .inscForm {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .formSection {
+      margin-bottom: 32px;
+    }
+    .formSection__title {
+      font-size: .78rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.35);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .fieldRow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field span {
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      color: #fff;
+      font-family: inherit;
+      font-size: .92rem;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+      width: 100%;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+    }
+    .field select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .field select option {
+      background: #1a0010;
+      color: #fff;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #dc0064;
+      background: rgba(220,0,100,.06);
+    }
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(255,255,255,.2);
+    }
+    .field--full {
+      grid-column: 1 / -1;
+    }
+
+    /* Checkbox RGPD */
+    .checkRow {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .checkRow input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      min-width: 18px;
+      accent-color: #dc0064;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .checkRow label {
+      font-size: .82rem;
+      color: rgba(255,255,255,.45);
+      line-height: 1.5;
+    }
+    .checkRow label a {
+      color: #dc0064;
+      text-decoration: none;
+    }
+
+    /* Submit area */
+    .formActions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* Success message */
+    .successMsg {
+      display: none;
+      background: rgba(0,200,80,.08);
+      border: 1px solid rgba(0,200,80,.3);
+      border-radius: 12px;
+      padding: 20px 24px;
+      color: #5fffaa;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .successMsg.show { display: block; }
+
+    /* Waiting list notice */
+    .waitNotice {
+      background: rgba(255,180,0,.06);
+      border: 1px solid rgba(255,180,0,.2);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: .82rem;
+      color: rgba(255,180,0,.8);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav { display: none; }
+      .nav__burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        width: 36px;
+        height: 36px;
+      }
+      .nav__burger span {
+        display: block;
+        height: 2px;
+        width: 22px;
+        background: #fff;
+        border-radius: 2px;
+        transition: transform .25s, opacity .25s;
+      }
+      .topbar {
+        border-radius: 18px;
+        top: 10px;
+        width: calc(100% - 24px);
+      }
+    }
+    @media (max-width: 600px) {
+      .typeSelector { grid-template-columns: 1fr; }
+      .fieldRow { grid-template-columns: 1fr; }
+      .hero__grid--insc { padding: 100px 16px 36px; }
+      .section--calendar,
+      .section--form { padding-left: 16px; padding-right: 16px; }
+      .calCell { font-size: .75rem; min-height: 34px; }
+      .formActions { flex-direction: column; }
+      .formActions .btn { width: 100%; text-align: center; justify-content: center; }
+      .footer__inner { flex-direction: column; gap: 10px; text-align: center; }
+      .footer__links { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background (same as ranking/contact) -->
+  <div aria-hidden="true" class="bg bg--ranking">
+    <div class="bg__image"></div>
+    <div class="bg__grid"></div>
+    <div class="bg__vignette"></div>
+  </div>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a aria-label="Retour à l'accueil" class="brand" href="index.html">
+        <img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+      <nav class="nav">
+        <a class="nav__btn" href="arena-tournament.html"><span>Arena Tournament</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+      </nav>
+      <button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="navmobile" hidden>
+      <a class="navmobile__link" href="arena-tournament.html">Arena Tournament</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+      <a class="navmobile__link is-active" href="inscription.html">Inscription</a>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- HERO -->
+    <section class="hero hero--ranking hero--insc">
+      <div class="hero__grid--insc">
+        <div class="chip">REJOINS L'ARÈNE</div>
+        <h1 class="h1">Inscrip<span class="grad">tion</span></h1>
+        <p class="p hero__p" style="margin-top:12px;max-width:520px;">
+          Choisis ton format, sélectionne ta catégorie et réserve ta place pour le prochain événement 1X1 ARENA.
+        </p>
+      </div>
+    </section>
+
+    <!-- CALENDAR SECTION -->
+    <section class="section section--calendar" id="calendrier">
+      <div class="calWrap">
+        <div class="section__head" style="max-width:100%;margin-bottom:28px;">
+          <h2 class="h2">Calendrier des événements</h2>
+          <p class="muted">Dates confirmées et à venir. Les nouvelles dates sont annoncées ici en priorité.</p>
+        </div>
+
+        <!-- Calendar nav + grid -->
+        <div class="calHeader">
+          <div class="calTitle">📅 Prochains tournois</div>
+          <div class="calNav">
+            <button class="calNav__btn" id="calPrev" aria-label="Mois précédent">‹</button>
+            <div class="calMonth" id="calMonth">—</div>
+            <button class="calNav__btn" id="calNext" aria-label="Mois suivant">›</button>
+          </div>
+        </div>
+
+        <div class="calGrid" id="calGrid">
+          <div class="calGrid__day">Lun</div>
+          <div class="calGrid__day">Mar</div>
+          <div class="calGrid__day">Mer</div>
+          <div class="calGrid__day">Jeu</div>
+          <div class="calGrid__day">Ven</div>
+          <div class="calGrid__day">Sam</div>
+          <div class="calGrid__day">Dim</div>
+          <!-- cells injected by JS -->
+        </div>
+
+        <!-- Events list -->
+        <div class="calLegend" id="calLegend"></div>
+
+        <!-- TBD notice when no events in view -->
+        <div class="calNotice" id="calNotice" style="display:none;">
+          <strong>Aucun événement confirmé ce mois.</strong><br>
+          La date du prochain tournoi sera annoncée prochainement. Active les notifications Instagram pour ne rien rater.
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM SECTION -->
+    <section class="section section--form" id="inscription">
+      <div class="formWrap">
+        <div class="section__head" style="max-width:100%;margin-bottom:32px;">
+          <h2 class="h2">Formulaire d'inscription</h2>
+          <p class="muted">Remplis toutes les informations pour confirmer ta candidature.</p>
+        </div>
+
+        <!-- Event type selector -->
+        <div class="typeSelector" id="typeSelector">
+          <div class="typeCard">
+            <input type="radio" name="eventType" id="typeTournament" value="tournament" checked/>
+            <label class="typeCard__label" for="typeTournament">
+              <span class="typeCard__badge">BRACKET</span>
+              <span class="typeCard__name">Arena Tournament</span>
+              <span class="typeCard__desc">Format élimination directe. 1 tournoi = 1 champion par catégorie.</span>
+            </label>
+          </div>
+          <div class="typeCard">
+            <input type="radio" name="eventType" id="typeBattle" value="battle"/>
+            <label class="typeCard__label" for="typeBattle">
+              <span class="typeCard__badge">MAIN EVENT</span>
+              <span class="typeCard__name">Arena Battle</span>
+              <span class="typeCard__desc">Duel 1v1 premium. Storyline, défense de titre, show à l'américaine.</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Waiting notice (shown when no confirmed date) -->
+        <div class="waitNotice" id="waitNotice">
+          ⚠️ <span>La date du prochain événement n'est pas encore confirmée. Ton inscription sera enregistrée et tu seras contacté(e) dès qu'une date est fixée.</span>
+        </div>
+
+        <form class="inscForm" id="inscForm" novalidate>
+          <!-- Infos perso -->
+          <div class="formSection">
+            <div class="formSection__title">Informations personnelles</div>
+            <div class="fieldRow">
+              <label class="field">
+                <span>Prénom</span>
+                <input type="text" name="firstName" required placeholder="Ton prénom" autocomplete="given-name"/>
+              </label>
+              <label class="field">
+                <span>Nom</span>
+                <input type="text" name="lastName" required placeholder="Ton nom" autocomplete="family-name"/>
+              </label>
+              <label class="field">
+                <span>Pseudo / Surnom</span>
+                <input type="text" name="pseudo" placeholder="Ton nom d'arène (optionnel)"/>
+              </label>
+              <label class="field">
+                <span>Âge</span>
+                <input type="number" name="age" min="14" max="60" required placeholder="Ton âge"/>
+              </label>
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" required placeholder="ton@email.com" autocomplete="email"/>
+              </label>
+              <label class="field">
+                <span>Téléphone</span>
+                <input type="tel" name="phone" required placeholder="+33 6 xx xx xx xx" autocomplete="tel"/>
+              </label>
+            </div>
+          </div>
+
+          <!-- Infos sportives -->
+          <div class="formSection">
+            <div class="formSection__title">Profil sportif</div>
+            <div class="fieldRow">
+              <label class="field">
+                <span>Taille (cm)</span>
+                <input type="number" name="height" min="140" max="230" required placeholder="ex : 185"/>
+              </label>
+              <label class="field">
+                <span>Poids (kg)</span>
+                <input type="number" name="weight" min="40" max="180" required placeholder="ex : 80"/>
+              </label>
+              <label class="field field--full">
+                <span>Catégorie</span>
+                <select name="category" required id="categorySelect">
+                  <option value="" disabled selected>Sélectionne ta catégorie</option>
+                  <option value="lil">Lil Height (–175 cm)</option>
+                  <option value="welter">Welter Height (175–190 cm)</option>
+                  <option value="big">Big Height (190 cm +)</option>
+                  <option value="womens" id="womensOpt">Womens Division</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Niveau</span>
+                <select name="level" required>
+                  <option value="" disabled selected>Ton niveau</option>
+                  <option value="debutant">Débutant</option>
+                  <option value="intermediate">Intermédiaire</option>
+                  <option value="avance">Avancé</option>
+                  <option value="elite">Élite / Semi-pro</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Club / Équipe</span>
+                <input type="text" name="club" placeholder="Ton club (optionnel)"/>
+              </label>
+            </div>
+          </div>
+
+          <!-- Événement visé (conditionnel battle) -->
+          <div class="formSection" id="battleSection" style="display:none;">
+            <div class="formSection__title">Infos Arena Battle</div>
+            <div class="fieldRow">
+              <label class="field field--full">
+                <span>Adversaire souhaité (optionnel)</span>
+                <input type="text" name="opponent" placeholder="Nom du joueur que tu veux affronter"/>
+              </label>
+              <label class="field field--full">
+                <span>Ton histoire / Motivation</span>
+                <textarea name="story" rows="3" placeholder="Ta rivalité, ton parcours, pourquoi tu mérites un Main Event..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- Infos complémentaires -->
+          <div class="formSection">
+            <div class="formSection__title">Infos complémentaires</div>
+            <div class="fieldRow">
+              <label class="field field--full">
+                <span>Comment as-tu connu 1X1 Arena ?</span>
+                <select name="source">
+                  <option value="" disabled selected>Sélectionne</option>
+                  <option value="instagram">Instagram</option>
+                  <option value="tiktok">TikTok</option>
+                  <option value="bouche_oreille">Bouche à oreille</option>
+                  <option value="evenement">Vu à un événement</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </label>
+              <label class="field field--full">
+                <span>Message libre (optionnel)</span>
+                <textarea name="message" rows="3" placeholder="Un message pour l'équipe..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- RGPD -->
+          <div class="checkRow">
+            <input type="checkbox" id="rgpd" name="rgpd" required/>
+            <label for="rgpd">J'accepte que mes données soient utilisées par 1X1 Arena pour le traitement de mon inscription. Elles ne seront pas transmises à des tiers.</label>
+          </div>
+
+          <!-- Actions -->
+          <div class="formActions">
+            <button class="btn btn--primary" type="submit">Confirmer mon inscription</button>
+            <a class="btn btn--ghost" href="ranking.html">Voir le Ranking</a>
+          </div>
+
+          <div class="successMsg" id="successMsg">
+            ✅ Inscription reçue ! L'équipe 1X1 Arena te contactera dès qu'une date est confirmée. À bientôt sur l'arène.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">1X1 ARENA</div>
+        <div class="footer__links">
+          <a href="arena-tournament.html">Arena Tournament</a>
+          <a href="arena-battle.html">Arena Battle</a>
+          <a href="ranking.html">Ranking</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
+      </div>
+    </footer>
+
+    <!-- Socials -->
+    <div class="socials">
+      <a aria-label="Instagram" class="social-btn" href="https://instagram.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm10 2H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3zm-5 4.5A5.5 5.5 0 1 1 6.5 12 5.5 5.5 0 0 1 12 8.5zm0 2A3.5 3.5 0 1 0 15.5 12 3.5 3.5 0 0 0 12 10.5zM18 6.2a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"></path>
+        </svg>
+      </a>
+      <a aria-label="TikTok" class="social-btn" href="https://tiktok.com" rel="noopener noreferrer" target="_blank">
+        <svg aria-hidden="true" class="social-svg" viewBox="0 0 24 24">
+          <path d="M16.5 3a6.6 6.6 0 0 0 4.5 2v3.2a9.9 9.9 0 0 1-4.5-1.3v7.1c0 4-3.2 7.2-7.2 7.2S2.1 19.9 2.1 15.9s3.2-7.2 7.2-7.2c.4 0 .8 0 1.2.1v3.3c-.4-.1-.8-.2-1.2-.2-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4V3h3z"></path>
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <script src="js/common.js"></script>
+  <script>
+    /* =========================================================
+       EVENTS DATA — add/edit events here to update the calendar
+       Format: { date: 'YYYY-MM-DD', name: 'Label', type: 'tournament'|'battle', location: 'Lieu' }
+       ========================================================= */
+    const EVENTS = [
+      // Example future events — replace with real dates when confirmed:
+      // { date: '2026-03-15', name: 'Arena Tournament #3', type: 'tournament', location: 'Paris' },
+      // { date: '2026-04-05', name: 'Arena Battle — Main Event', type: 'battle', location: 'Paris' },
+    ];
+
+    /* =========================================================
+       CALENDAR ENGINE
+       ========================================================= */
+    const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    let currentDate = new Date();
+
+    function renderCalendar() {
+      const y = currentDate.getFullYear();
+      const m = currentDate.getMonth();
+
+      document.getElementById('calMonth').textContent = `${MONTHS_FR[m]} ${y}`;
+
+      const grid = document.getElementById('calGrid');
+      // Remove old cells (keep day headers = first 7 children)
+      while (grid.children.length > 7) grid.removeChild(grid.lastChild);
+
+      const today = new Date();
+      const firstDay = new Date(y, m, 1);
+      const lastDay = new Date(y, m + 1, 0);
+      // Monday-first: 0=Mon … 6=Sun
+      let startOffset = (firstDay.getDay() + 6) % 7;
+
+      // Events in this month
+      const monthEvents = EVENTS.filter(e => {
+        const d = new Date(e.date);
+        return d.getFullYear() === y && d.getMonth() === m;
+      });
+      const eventDays = new Set(monthEvents.map(e => new Date(e.date).getDate()));
+
+      // Empty cells
+      for (let i = 0; i < startOffset; i++) {
+        const c = document.createElement('div');
+        c.className = 'calCell calCell--empty';
+        grid.appendChild(c);
+      }
+
+      for (let d = 1; d <= lastDay.getDate(); d++) {
+        const c = document.createElement('div');
+        c.className = 'calCell';
+        c.textContent = d;
+        const isToday = today.getFullYear() === y && today.getMonth() === m && today.getDate() === d;
+        if (isToday) c.classList.add('calCell--today');
+        if (eventDays.has(d)) {
+          c.classList.add('calCell--event');
+          c.title = monthEvents.find(e => new Date(e.date).getDate() === d)?.name || '';
+          c.addEventListener('click', () => {
+            document.getElementById('inscription').scrollIntoView({ behavior: 'smooth' });
+          });
+        }
+        grid.appendChild(c);
+      }
+
+      // Legend
+      const legend = document.getElementById('calLegend');
+      legend.innerHTML = '';
+      if (monthEvents.length === 0) {
+        document.getElementById('calNotice').style.display = 'block';
+      } else {
+        document.getElementById('calNotice').style.display = 'none';
+        monthEvents.forEach(ev => {
+          const d = new Date(ev.date);
+          const el = document.createElement('div');
+          el.className = 'calEvent';
+          el.innerHTML = `
+            <div class="calEvent__date">${d.getDate()} ${MONTHS_FR[d.getMonth()].slice(0,3).toUpperCase()}</div>
+            <div class="calEvent__info">
+              <div class="calEvent__name">${ev.name}</div>
+              <div class="calEvent__sub">${ev.location || ''}</div>
+            </div>
+            <span class="calEvent__tag">${ev.type === 'battle' ? 'BATTLE' : 'TOURNAMENT'}</span>
+          `;
+          el.style.cursor = 'pointer';
+          el.addEventListener('click', () => {
+            document.getElementById('inscription').scrollIntoView({ behavior: 'smooth' });
+          });
+          legend.appendChild(el);
+        });
+      }
+
+      // If NO events at all across all months, always show notice
+      if (EVENTS.length === 0) {
+        document.getElementById('calNotice').style.display = 'block';
+      }
+    }
+
+    document.getElementById('calPrev').addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() - 1);
+      renderCalendar();
+    });
+    document.getElementById('calNext').addEventListener('click', () => {
+      currentDate.setMonth(currentDate.getMonth() + 1);
+      renderCalendar();
+    });
+
+    renderCalendar();
+
+    /* =========================================================
+       FORM LOGIC
+       ========================================================= */
+    // Show/hide battle section
+    document.querySelectorAll('input[name="eventType"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        const isBattle = document.getElementById('typeBattle').checked;
+        document.getElementById('battleSection').style.display = isBattle ? 'block' : 'none';
+      });
+    });
+
+    // Form submit → save to localStorage + show success
+    document.getElementById('inscForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!this.checkValidity()) {
+        this.reportValidity();
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(this).entries());
+      data.timestamp = new Date().toISOString();
+      data.id = Date.now().toString();
+
+      // Save to localStorage
+      const stored = JSON.parse(localStorage.getItem('1x1_inscriptions') || '[]');
+      stored.push(data);
+      localStorage.setItem('1x1_inscriptions', JSON.stringify(stored));
+
+      // UI feedback
+      document.getElementById('successMsg').classList.add('show');
+      this.style.opacity = '.4';
+      this.style.pointerEvents = 'none';
+      document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  </script>
+</body>
+</html>
