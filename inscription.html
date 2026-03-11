@@ -803,10 +803,7 @@
           </div>
         </div>
 
-        <!-- Waiting notice (shown when no confirmed date) -->
-       <div class="waitNotice" id="waitNotice">
-          ⚠️ <span>La date du prochain événement n'est pas encore confirmée. Ton inscription sera enregistrée et tu seras contacté(e) dès qu'une date est fixée.</span>
-        </div>
+        
 
         <form class="inscForm" id="inscForm" novalidate>
           <!-- Infos perso -->
@@ -1108,11 +1105,11 @@
       };
 
       try {
-        const { error } = await supabase.from('inscriptions').insert([data]);
+        const { error } = await _supabase.from('inscriptions').insert([data]);
         if (error) throw error;
 
         try {
-          await supabase.functions.invoke('send-confirmation', {
+          await _supabase.functions.invoke('send-confirmation', {
             body: { prenom: data.prenom, nom: data.nom, email: data.email, pseudo: data.pseudo }
           });
         } catch (emailErr) { console.warn('Email non envoyé:', emailErr); }
