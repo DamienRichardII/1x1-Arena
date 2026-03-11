@@ -23,7 +23,7 @@ body{
 .bg{position:fixed;inset:0;z-index:-5}
 .bg__image{
   position:absolute;inset:0;
-  background-image:url("assets/bg.jpg");
+  background-image:url("../assets/bg.jpg");
   background-size:cover;
   background-position:center;
   /* plus de blur : on garde le rendu original */
