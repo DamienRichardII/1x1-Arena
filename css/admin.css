@@ -32,7 +32,7 @@ body{
     radial-gradient(600px at 60% 70%, rgba(35,213,255,.08), transparent);
 }
 .login-card{
-  text-align:center;max-width:380px;width:100%;padding:40px 28px;
+  text-align:center;max-width:380px;width:90%;padding:40px 28px;
   border-radius:28px;
   border:1px solid var(--glassBorder);
   background:var(--glass);
@@ -47,16 +47,18 @@ body{
 
 .field{display:flex;flex-direction:column;gap:6px;text-align:left}
 .field__label{font-size:12px;font-weight:700;color:rgba(255,255,255,.72)}
-.field input{
+.field input,.field textarea{
   width:100%;border-radius:14px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.06);
   padding:12px 14px;font:inherit;font-size:14px;
   color:var(--text);outline:none;
   transition:border-color .2s,box-shadow .2s;
+  box-sizing:border-box;
 }
-.field input:focus{border-color:rgba(255,45,189,.40);box-shadow:0 0 0 4px rgba(255,45,189,.10)}
-.field input::placeholder{color:rgba(255,255,255,.28)}
+.field textarea{resize:vertical;min-height:100px}
+.field input:focus,.field textarea:focus{border-color:rgba(255,45,189,.40);box-shadow:0 0 0 4px rgba(255,45,189,.10)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,.28)}
 
 /* Buttons */
 .btn{
@@ -65,7 +67,7 @@ body{
   border:1px solid rgba(255,255,255,.12);
   text-decoration:none;font-size:12px;font-weight:700;
   color:var(--text);background:rgba(255,255,255,.05);
-  cursor:pointer;
+  cursor:pointer;font-family:inherit;
   transition:transform .15s,background .2s,border-color .2s;
 }
 .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.18)}
@@ -76,6 +78,8 @@ body{
 }
 .btn--primary:hover{background:linear-gradient(90deg,rgba(255,45,189,.36),rgba(35,213,255,.30))}
 .btn--ghost{background:rgba(0,0,0,.28)}
+.btn--danger{background:rgba(239,68,68,.20);border-color:rgba(239,68,68,.35);color:#f87171}
+.btn--danger:hover{background:rgba(239,68,68,.30)}
 .btn--lg{height:48px;padding:0 28px;font-size:14px}
 .btn--sm{height:36px;padding:0 14px;font-size:11px}
 
@@ -103,7 +107,7 @@ body{
 .dash-main{max-width:1400px;margin:0 auto;padding:24px 16px 60px}
 
 /* Stats */
-.stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
 .stat-card{
   border-radius:18px;padding:18px 20px;
   border:1px solid var(--glassBorder);
@@ -113,9 +117,25 @@ body{
 .stat-card__label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
 .stat-card__value{font-size:28px;font-weight:900;margin-top:6px;letter-spacing:-.02em}
 
-/* Actions */
-.dash-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;flex-wrap:wrap}
-.dash-title{font-size:22px;font-weight:900}
+/* Filters */
+.dash-filters{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin-bottom:16px;flex-wrap:wrap;
+}
+.filter-tabs{display:flex;gap:6px}
+.filter-tab{
+  padding:8px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.60);font-size:12px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+  transition:all .2s;
+}
+.filter-tab:hover{background:rgba(255,255,255,.08);color:var(--text)}
+.filter-tab.is-active{
+  background:linear-gradient(90deg,rgba(255,45,189,.20),rgba(35,213,255,.15));
+  border-color:rgba(255,255,255,.18);color:var(--text);
+}
 .dash-actions__right{display:flex;gap:10px}
 
 /* Table */
@@ -128,34 +148,69 @@ body{
   box-shadow:0 20px 60px rgba(0,0,0,.4);
 }
 
-.data-table{width:100%;border-collapse:collapse;min-width:900px}
+.data-table{width:100%;border-collapse:collapse;min-width:1000px}
 .data-table thead{border-bottom:1px solid rgba(255,255,255,.10)}
 .data-table th{
-  padding:14px 12px;
+  padding:14px 10px;
   font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
   color:var(--muted);text-align:left;white-space:nowrap;
 }
 .data-table td{
-  padding:12px 12px;font-size:13px;
+  padding:10px 10px;font-size:12px;
   border-bottom:1px solid rgba(255,255,255,.05);
   color:rgba(255,255,255,.85);
   white-space:nowrap;
 }
 .data-table tbody tr:hover{background:rgba(255,255,255,.04)}
 .data-table tbody tr:last-child td{border-bottom:none}
-
 .table-empty{text-align:center;padding:40px!important;color:var(--muted);font-size:14px}
+
+/* Checkbox */
+.row-check{width:16px;height:16px;accent-color:var(--accent1);cursor:pointer}
+
+/* Badges */
+.badge{
+  display:inline-block;padding:3px 10px;border-radius:999px;
+  font-size:10px;font-weight:800;letter-spacing:.04em;
+}
+.badge--tournament{background:rgba(255,45,189,.15);border:1px solid rgba(255,45,189,.30);color:#ff69c0}
+.badge--battle{background:rgba(35,213,255,.15);border:1px solid rgba(35,213,255,.30);color:#5ee5ff}
+
+/* Links */
+.email-link{color:rgba(255,255,255,.70);text-decoration:none;font-size:12px}
+.email-link:hover{color:var(--text);text-decoration:underline}
 
 .video-link{
   display:inline-flex;align-items:center;gap:4px;
-  padding:5px 10px;border-radius:999px;
+  padding:4px 10px;border-radius:999px;
   background:rgba(35,213,255,.12);border:1px solid rgba(35,213,255,.25);
-  color:rgba(35,213,255,.95);font-size:11px;font-weight:700;
-  text-decoration:none;cursor:pointer;
+  color:rgba(35,213,255,.95);font-size:10px;font-weight:700;
+  text-decoration:none;cursor:pointer;font-family:inherit;
   transition:background .2s;
 }
 .video-link:hover{background:rgba(35,213,255,.20)}
-.no-video{color:rgba(255,255,255,.25);font-size:11px}
+.no-video{color:rgba(255,255,255,.20);font-size:11px}
+
+/* Action buttons */
+.action-btn{
+  width:32px;height:32px;border-radius:10px;border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);cursor:pointer;font-size:14px;
+  display:inline-grid;place-items:center;transition:all .2s;
+}
+.action-btn--del:hover{background:rgba(239,68,68,.20);border-color:rgba(239,68,68,.30)}
+
+/* Bulk bar */
+.bulk-bar{
+  position:sticky;bottom:16px;z-index:40;
+  display:flex;align-items:center;gap:14px;
+  margin-top:16px;padding:14px 20px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(5,6,10,.90);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  box-shadow:0 16px 40px rgba(0,0,0,.5);
+  font-size:13px;font-weight:700;
+}
 
 /* Modal */
 .modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center}
@@ -165,11 +220,12 @@ body{
   max-width:600px;width:90%;
   border-radius:22px;
   border:1px solid var(--glassBorder);
-  background:rgba(10,12,18,.92);
+  background:rgba(10,12,18,.95);
   backdrop-filter:blur(20px);
   padding:24px;
   box-shadow:0 30px 80px rgba(0,0,0,.6);
 }
+.modal__content--sm{max-width:400px}
 .modal__header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .modal__header h3{font-size:16px;font-weight:800}
 .modal__close{
@@ -177,20 +233,22 @@ body{
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.06);
   color:var(--text);font-size:20px;cursor:pointer;
-  display:grid;place-items:center;
+  display:grid;place-items:center;font-family:inherit;
 }
 .modal__close:hover{background:rgba(255,255,255,.12)}
 .modal__body{display:flex;flex-direction:column;gap:14px}
-.modal__embed{
-  border-radius:14px;overflow:hidden;
-  aspect-ratio:16/9;
-  background:rgba(0,0,0,.4);
-}
+.modal__info{font-size:12px;color:var(--muted);line-height:1.5;word-break:break-all}
+.modal__actions{display:flex;gap:10px;margin-top:4px}
+.modal__embed{border-radius:14px;overflow:hidden;aspect-ratio:16/9;background:rgba(0,0,0,.4)}
 .modal__embed iframe{width:100%;height:100%;border:none}
 
 /* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:768px){
   .stats-bar{grid-template-columns:1fr}
-  .dash-actions{flex-direction:column;align-items:flex-start}
+  .dash-filters{flex-direction:column;align-items:flex-start}
   .stat-card__value{font-size:22px}
+  .bulk-bar{flex-wrap:wrap}
 }

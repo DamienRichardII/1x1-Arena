@@ -51,21 +51,29 @@
         <div class="stat-card__value" id="statTotal">—</div>
       </div>
       <div class="stat-card">
+        <div class="stat-card__label">Arena Tournament</div>
+        <div class="stat-card__value" id="statTournament">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__label">Arena Battle</div>
+        <div class="stat-card__value" id="statBattle">—</div>
+      </div>
+      <div class="stat-card">
         <div class="stat-card__label">Avec vidéo</div>
         <div class="stat-card__value" id="statVideo">—</div>
       </div>
-      <div class="stat-card">
-        <div class="stat-card__label">Dernière inscription</div>
-        <div class="stat-card__value" id="statLast">—</div>
-      </div>
     </div>
 
-    <!-- Actions -->
-    <div class="dash-actions">
-      <h2 class="dash-title">Inscriptions <span class="grad">Arena Tournament</span></h2>
+    <!-- Filters -->
+    <div class="dash-filters">
+      <div class="filter-tabs">
+        <button class="filter-tab is-active" data-filter="all">Tous</button>
+        <button class="filter-tab" data-filter="tournament">Tournament</button>
+        <button class="filter-tab" data-filter="battle">Battle</button>
+      </div>
       <div class="dash-actions__right">
-        <button id="refreshBtn" class="btn btn--ghost btn--sm">Rafraîchir</button>
-        <button id="exportPdfBtn" class="btn btn--primary btn--sm">Exporter PDF</button>
+        <button id="refreshBtn" class="btn btn--ghost btn--sm">↻ Rafraîchir</button>
+        <button id="exportPdfBtn" class="btn btn--primary btn--sm">📄 Imprimer PDF (A4)</button>
       </div>
     </div>
 
@@ -75,39 +83,92 @@
         <thead>
           <tr>
             <th>#</th>
+            <th>Type</th>
             <th>Prénom</th>
             <th>Nom</th>
             <th>Pseudo</th>
             <th>Email</th>
-            <th>Téléphone</th>
+            <th>Tél.</th>
             <th>Âge</th>
-            <th>Ville</th>
             <th>Taille</th>
             <th>Poids</th>
             <th>Vidéo</th>
             <th>Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="inscBody">
-          <tr><td colspan="12" class="table-empty">Chargement…</td></tr>
+          <tr><td colspan="13" class="table-empty">Chargement…</td></tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Video viewer modal -->
+    <!-- Bulk actions -->
+    <div class="bulk-bar" id="bulkBar" hidden>
+      <span id="bulkCount">0 sélectionné(s)</span>
+      <button id="bulkDelete" class="btn btn--danger btn--sm">🗑 Supprimer la sélection</button>
+      <button id="bulkEmail" class="btn btn--ghost btn--sm">✉ Envoyer un email</button>
+    </div>
+
+    <!-- Email Modal -->
+    <div id="emailModal" class="modal" hidden>
+      <div class="modal__backdrop"></div>
+      <div class="modal__content">
+        <div class="modal__header">
+          <h3 id="emailModalTitle">Envoyer un email</h3>
+          <button class="modal__close" data-close="emailModal">&times;</button>
+        </div>
+        <div class="modal__body">
+          <p class="modal__info" id="emailRecipients"></p>
+          <label class="field">
+            <span class="field__label">Sujet</span>
+            <input id="emailSubject" type="text" placeholder="Sujet du mail"/>
+          </label>
+          <label class="field">
+            <span class="field__label">Message</span>
+            <textarea id="emailBody" rows="6" placeholder="Corps du message…"></textarea>
+          </label>
+          <div class="modal__actions">
+            <button id="emailSendBtn" class="btn btn--primary btn--sm">Envoyer via votre mail</button>
+            <button class="btn btn--ghost btn--sm" data-close="emailModal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Modal -->
     <div id="videoModal" class="modal" hidden>
       <div class="modal__backdrop"></div>
       <div class="modal__content">
         <div class="modal__header">
-          <h3 id="modalTitle">Vidéo</h3>
-          <button id="modalClose" class="modal__close">&times;</button>
+          <h3 id="videoModalTitle">Vidéo</h3>
+          <button class="modal__close" data-close="videoModal">&times;</button>
         </div>
         <div class="modal__body">
-          <a id="modalLink" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Ouvrir le lien</a>
-          <div id="modalEmbed" class="modal__embed"></div>
+          <a id="videoLink" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm" style="width:100%;justify-content:center">Ouvrir le lien dans un nouvel onglet</a>
+          <div id="videoEmbed" class="modal__embed"></div>
         </div>
       </div>
     </div>
+
+    <!-- Delete confirm Modal -->
+    <div id="deleteModal" class="modal" hidden>
+      <div class="modal__backdrop"></div>
+      <div class="modal__content modal__content--sm">
+        <div class="modal__header">
+          <h3>Confirmer la suppression</h3>
+          <button class="modal__close" data-close="deleteModal">&times;</button>
+        </div>
+        <div class="modal__body">
+          <p id="deleteMsg">Supprimer cet inscrit ?</p>
+          <div class="modal__actions">
+            <button id="deleteConfirmBtn" class="btn btn--danger btn--sm">Supprimer</button>
+            <button class="btn btn--ghost btn--sm" data-close="deleteModal">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -115,6 +176,319 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
 <script src="js/supabase-config.js"></script>
-<script src="js/admin.js"></script>
+<script>
+(() => {
+  const ADMIN_PASSWORD = '1x1arena2025';
+  const sb = typeof supabaseClient !== 'undefined' ? supabaseClient : (typeof _supabase !== 'undefined' ? _supabase : window.supabase?.createClient?.('',''));
+
+  // DOM
+  const loginOverlay = document.getElementById('loginOverlay');
+  const dashboard = document.getElementById('adminDashboard');
+  const pwdInput = document.getElementById('adminPwd');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginError = document.getElementById('loginError');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const exportPdfBtn = document.getElementById('exportPdfBtn');
+  const inscBody = document.getElementById('inscBody');
+  const bulkBar = document.getElementById('bulkBar');
+  const bulkCount = document.getElementById('bulkCount');
+  const bulkDelete = document.getElementById('bulkDelete');
+  const bulkEmail = document.getElementById('bulkEmail');
+
+  let inscriptions = [];
+  let currentFilter = 'all';
+  let selectedIds = new Set();
+  let pendingDeleteIds = [];
+
+  // ===== AUTH =====
+  function isLoggedIn() { return sessionStorage.getItem('1x1_admin') === 'true'; }
+  function showDashboard() { loginOverlay.hidden = true; dashboard.hidden = false; loadInscriptions(); }
+
+  if (isLoggedIn()) showDashboard();
+
+  loginBtn.addEventListener('click', () => {
+    if (pwdInput.value === ADMIN_PASSWORD) {
+      sessionStorage.setItem('1x1_admin', 'true');
+      loginError.hidden = true;
+      showDashboard();
+    } else {
+      loginError.hidden = false;
+      pwdInput.value = '';
+      pwdInput.focus();
+    }
+  });
+  pwdInput.addEventListener('keydown', e => { if (e.key === 'Enter') loginBtn.click(); });
+
+  logoutBtn.addEventListener('click', () => {
+    sessionStorage.removeItem('1x1_admin');
+    dashboard.hidden = true;
+    loginOverlay.hidden = false;
+    pwdInput.value = '';
+  });
+
+  // ===== LOAD DATA =====
+  async function loadInscriptions() {
+    inscBody.innerHTML = '<tr><td colspan="13" class="table-empty">Chargement…</td></tr>';
+    try {
+      const { data, error } = await sb.from('inscriptions').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
+      inscriptions = data || [];
+      selectedIds.clear();
+      updateBulkBar();
+      renderStats();
+      renderTable();
+    } catch (err) {
+      console.error('Erreur:', err);
+      inscBody.innerHTML = '<tr><td colspan="13" class="table-empty">Erreur de chargement. Vérifie ta config Supabase.</td></tr>';
+    }
+  }
+
+  refreshBtn.addEventListener('click', loadInscriptions);
+
+  // ===== FILTERS =====
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('is-active'));
+      tab.classList.add('is-active');
+      currentFilter = tab.dataset.filter;
+      renderTable();
+    });
+  });
+
+  function getFiltered() {
+    if (currentFilter === 'all') return inscriptions;
+    return inscriptions.filter(r => {
+      const type = (r.event_type || r.type || 'tournament').toLowerCase();
+      return type.includes(currentFilter);
+    });
+  }
+
+  // ===== RENDER STATS =====
+  function renderStats() {
+    document.getElementById('statTotal').textContent = inscriptions.length;
+    const tournaments = inscriptions.filter(r => (r.event_type || r.type || 'tournament').toLowerCase().includes('tournament'));
+    const battles = inscriptions.filter(r => (r.event_type || r.type || '').toLowerCase().includes('battle'));
+    document.getElementById('statTournament').textContent = tournaments.length;
+    document.getElementById('statBattle').textContent = battles.length;
+    document.getElementById('statVideo').textContent = inscriptions.filter(r => r.video_url).length;
+  }
+
+  // ===== RENDER TABLE =====
+  function renderTable() {
+    const filtered = getFiltered();
+    if (filtered.length === 0) {
+      inscBody.innerHTML = '<tr><td colspan="13" class="table-empty">Aucune inscription.</td></tr>';
+      return;
+    }
+
+    inscBody.innerHTML = filtered.map((r, i) => {
+      const date = r.created_at ? new Date(r.created_at).toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit', year:'2-digit' }) : '—';
+      const type = (r.event_type || r.type || 'tournament').toLowerCase();
+      const typeBadge = type.includes('battle')
+        ? '<span class="badge badge--battle">Battle</span>'
+        : '<span class="badge badge--tournament">Tournament</span>';
+      const videoCell = r.video_url
+        ? '<button class="video-link" data-url="' + esc(r.video_url) + '" data-name="' + esc(r.prenom + ' ' + r.nom) + '">▶ Voir</button>'
+        : '<span class="no-video">—</span>';
+      const checked = selectedIds.has(r.id) ? 'checked' : '';
+
+      return '<tr data-id="' + r.id + '">' +
+        '<td><input type="checkbox" class="row-check" data-id="' + r.id + '" ' + checked + '/></td>' +
+        '<td>' + typeBadge + '</td>' +
+        '<td>' + esc(r.prenom) + '</td>' +
+        '<td>' + esc(r.nom) + '</td>' +
+        '<td>' + esc(r.pseudo || '—') + '</td>' +
+        '<td><a href="mailto:' + esc(r.email) + '" class="email-link">' + esc(r.email) + '</a></td>' +
+        '<td>' + esc(r.telephone) + '</td>' +
+        '<td>' + (r.age || '—') + '</td>' +
+        '<td>' + (r.taille_cm ? r.taille_cm + '' : '—') + '</td>' +
+        '<td>' + (r.poids_kg ? r.poids_kg + '' : '—') + '</td>' +
+        '<td>' + videoCell + '</td>' +
+        '<td>' + date + '</td>' +
+        '<td><button class="action-btn action-btn--del" data-del="' + r.id + '" title="Supprimer">🗑</button></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function esc(str) { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+
+  // ===== CHECKBOX SELECTION =====
+  inscBody.addEventListener('change', e => {
+    const cb = e.target.closest('.row-check');
+    if (!cb) return;
+    const id = cb.dataset.id;
+    if (cb.checked) selectedIds.add(id); else selectedIds.delete(id);
+    updateBulkBar();
+  });
+
+  function updateBulkBar() {
+    if (selectedIds.size > 0) {
+      bulkBar.hidden = false;
+      bulkCount.textContent = selectedIds.size + ' sélectionné(s)';
+    } else {
+      bulkBar.hidden = true;
+    }
+  }
+
+  // ===== DELETE =====
+  inscBody.addEventListener('click', e => {
+    const btn = e.target.closest('[data-del]');
+    if (!btn) return;
+    pendingDeleteIds = [btn.dataset.del];
+    document.getElementById('deleteMsg').textContent = 'Supprimer cet inscrit ?';
+    openModal('deleteModal');
+  });
+
+  bulkDelete.addEventListener('click', () => {
+    if (selectedIds.size === 0) return;
+    pendingDeleteIds = [...selectedIds];
+    document.getElementById('deleteMsg').textContent = 'Supprimer ' + pendingDeleteIds.length + ' inscrit(s) ?';
+    openModal('deleteModal');
+  });
+
+  document.getElementById('deleteConfirmBtn').addEventListener('click', async () => {
+    if (pendingDeleteIds.length === 0) return;
+    try {
+      for (const id of pendingDeleteIds) {
+        await sb.from('inscriptions').delete().eq('id', id);
+      }
+      pendingDeleteIds.forEach(id => selectedIds.delete(id));
+      pendingDeleteIds = [];
+      closeModal('deleteModal');
+      await loadInscriptions();
+    } catch (err) {
+      console.error(err);
+      alert('Erreur lors de la suppression.');
+    }
+  });
+
+  // ===== VIDEO MODAL =====
+  inscBody.addEventListener('click', e => {
+    const btn = e.target.closest('.video-link');
+    if (!btn) return;
+    const url = btn.dataset.url;
+    const name = btn.dataset.name;
+    document.getElementById('videoModalTitle').textContent = 'Vidéo — ' + name;
+    document.getElementById('videoLink').href = url;
+    const embed = document.getElementById('videoEmbed');
+    const ytId = extractYT(url);
+    if (ytId) {
+      embed.innerHTML = '<iframe src="https://www.youtube.com/embed/' + ytId + '" allowfullscreen></iframe>';
+    } else {
+      embed.innerHTML = '<div style="display:grid;place-items:center;height:100%;color:rgba(255,255,255,.4);font-size:13px;padding:20px;text-align:center">Aperçu non disponible. Clique sur le bouton ci-dessus.</div>';
+    }
+    openModal('videoModal');
+  });
+
+  function extractYT(url) {
+    try { const u = new URL(url); if (u.hostname.includes('youtube.com')) return u.searchParams.get('v'); if (u.hostname.includes('youtu.be')) return u.pathname.slice(1); } catch {} return null;
+  }
+
+  // ===== EMAIL =====
+  bulkEmail.addEventListener('click', () => {
+    if (selectedIds.size === 0) return;
+    const recipients = inscriptions.filter(r => selectedIds.has(r.id)).map(r => r.email).filter(Boolean);
+    document.getElementById('emailRecipients').textContent = 'Destinataires : ' + recipients.join(', ');
+    document.getElementById('emailSubject').value = '[1X1 ARENA] ';
+    document.getElementById('emailBody').value = '';
+    openModal('emailModal');
+  });
+
+  document.getElementById('emailSendBtn').addEventListener('click', () => {
+    const recipients = inscriptions.filter(r => selectedIds.has(r.id)).map(r => r.email).filter(Boolean);
+    const subject = document.getElementById('emailSubject').value;
+    const body = document.getElementById('emailBody').value;
+    const url = 'mailto:' + recipients.join(',') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    window.location.href = url;
+    closeModal('emailModal');
+  });
+
+  // ===== MODALS =====
+  function openModal(id) { document.getElementById(id).hidden = false; }
+  function closeModal(id) {
+    document.getElementById(id).hidden = true;
+    if (id === 'videoModal') document.getElementById('videoEmbed').innerHTML = '';
+  }
+
+  document.querySelectorAll('[data-close]').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.dataset.close));
+  });
+  document.querySelectorAll('.modal__backdrop').forEach(bd => {
+    bd.addEventListener('click', () => { bd.closest('.modal').hidden = true; });
+  });
+
+  // ===== PDF EXPORT (A4 Portrait) =====
+  exportPdfBtn.addEventListener('click', () => {
+    const filtered = getFiltered();
+    if (filtered.length === 0) return alert('Aucune inscription à exporter.');
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+
+    // Header
+    doc.setFillColor(5, 6, 10);
+    doc.rect(0, 0, pageW, 26, 'F');
+
+    // Gradient line
+    for (let i = 0; i < 60; i++) {
+      const r = Math.round(255*(1-i/60) + 35*(i/60));
+      const g = Math.round(45*(1-i/60) + 213*(i/60));
+      const b = Math.round(189*(1-i/60) + 255*(i/60));
+      doc.setFillColor(r, g, b);
+      doc.rect((pageW/60)*i, 26, pageW/60+0.5, 1.2, 'F');
+    }
+
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(14);
+    doc.setTextColor(255,255,255);
+    doc.text('1X1 ARENA', 14, 11);
+
+    const filterLabel = currentFilter === 'all' ? 'Tous les inscrits' : currentFilter === 'tournament' ? 'Arena Tournament' : 'Arena Battle';
+    doc.setFontSize(9);
+    doc.setTextColor(180,180,190);
+    doc.text('Liste des inscriptions — ' + filterLabel, 14, 17);
+
+    const now = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+    doc.setFontSize(8);
+    doc.setTextColor(140,140,155);
+    doc.text('Export du ' + now + ' — ' + filtered.length + ' inscrit(s)', 14, 23);
+
+    // Table
+    const headers = [['#','Prénom','Nom','Pseudo','Email','Tél.','Âge','Taille','Poids','Date']];
+    const rows = filtered.map((r, i) => {
+      const date = r.created_at ? new Date(r.created_at).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'2-digit'}) : '—';
+      return [i+1, r.prenom||'', r.nom||'', r.pseudo||'—', r.email||'', r.telephone||'', r.age||'—', r.taille_cm?r.taille_cm+'cm':'—', r.poids_kg?r.poids_kg+'kg':'—', date];
+    });
+
+    doc.autoTable({
+      startY: 32,
+      head: headers,
+      body: rows,
+      theme: 'grid',
+      styles: { font:'helvetica', fontSize:7.5, cellPadding:2.5, lineWidth:0.1, lineColor:[40,42,55], textColor:[220,220,230], fillColor:[15,16,22] },
+      headStyles: { fillColor:[30,32,45], textColor:[255,255,255], fontStyle:'bold', fontSize:7 },
+      alternateRowStyles: { fillColor:[22,24,34] },
+      columnStyles: { 0:{halign:'center',cellWidth:8}, 6:{halign:'center',cellWidth:10}, 7:{halign:'center',cellWidth:14}, 8:{halign:'center',cellWidth:14}, 9:{halign:'center',cellWidth:16} },
+      margin: { left:10, right:10 },
+      didDrawPage: () => {
+        const pn = doc.internal.getCurrentPageInfo().pageNumber;
+        doc.setFontSize(7);
+        doc.setTextColor(100,100,115);
+        doc.text('1X1 ARENA — Page ' + pn, pageW/2, pageH-6, {align:'center'});
+        for (let i=0;i<60;i++){
+          const r=Math.round(255*(1-i/60)+35*(i/60)),g=Math.round(45*(1-i/60)+213*(i/60)),b=Math.round(189*(1-i/60)+255*(i/60));
+          doc.setFillColor(r,g,b);doc.rect((pageW/60)*i,pageH-3,pageW/60+0.5,0.8,'F');
+        }
+      }
+    });
+
+    doc.save('1X1-ARENA_Inscriptions_' + new Date().toISOString().slice(0,10) + '.pdf');
+  });
+
+})();
+</script>
 </body>
 </html>
