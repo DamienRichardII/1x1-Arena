@@ -804,7 +804,7 @@
         </div>
 
         <!-- Waiting notice (shown when no confirmed date) -->
-        <div class="waitNotice" id="waitNotice">
+       <div class="waitNotice" id="waitNotice">
           ⚠️ <span>La date du prochain événement n'est pas encore confirmée. Ton inscription sera enregistrée et tu seras contacté(e) dès qu'une date est fixée.</span>
         </div>
 
@@ -963,17 +963,18 @@
       </a>
     </div>
   </main>
-
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/common.js"></script>
+
+  
   <script>
     /* =========================================================
        EVENTS DATA — add/edit events here to update the calendar
        Format: { date: 'YYYY-MM-DD', name: 'Label', type: 'tournament'|'battle', location: 'Lieu' }
        ========================================================= */
     const EVENTS = [
-      // Example future events — replace with real dates when confirmed:
-      // { date: '2026-03-15', name: 'Arena Tournament #3', type: 'tournament', location: 'Paris' },
-      // { date: '2026-04-05', name: 'Arena Battle — Main Event', type: 'battle', location: 'Paris' },
+      { date: '2026-04-26', name: 'Arena Tournament', type: 'tournament', location: 'Paris' },
     ];
 
     /* =========================================================
@@ -1083,28 +1084,47 @@
       });
     });
 
-    // Form submit → save to localStorage + show success
-    document.getElementById('inscForm').addEventListener('submit', function(e) {
+    // Form submit → save to Supabase + show success
+    document.getElementById('inscForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!this.checkValidity()) {
         this.reportValidity();
         return;
       }
 
-      const data = Object.fromEntries(new FormData(this).entries());
-      data.timestamp = new Date().toISOString();
-      data.id = Date.now().toString();
+      const fd = new FormData(this);
+      const data = {
+        prenom: fd.get('firstName')?.trim() || '',
+        nom: fd.get('lastName')?.trim() || '',
+        email: fd.get('email')?.trim().toLowerCase() || '',
+        telephone: fd.get('phone')?.trim() || '',
+        age: parseInt(fd.get('age')) || null,
+        ville: '',
+        taille_cm: parseInt(fd.get('height')) || null,
+        poids_kg: parseInt(fd.get('weight')) || null,
+        pseudo: fd.get('pseudo')?.trim() || null,
+        video_url: null,
+        message: fd.get('message')?.trim() || null,
+      };
 
-      // Save to localStorage
-      const stored = JSON.parse(localStorage.getItem('1x1_inscriptions') || '[]');
-      stored.push(data);
-      localStorage.setItem('1x1_inscriptions', JSON.stringify(stored));
+      try {
+        const { error } = await supabase.from('inscriptions').insert([data]);
+        if (error) throw error;
 
-      // UI feedback
-      document.getElementById('successMsg').classList.add('show');
-      this.style.opacity = '.4';
-      this.style.pointerEvents = 'none';
-      document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        try {
+          await supabase.functions.invoke('send-confirmation', {
+            body: { prenom: data.prenom, nom: data.nom, email: data.email, pseudo: data.pseudo }
+          });
+        } catch (emailErr) { console.warn('Email non envoyé:', emailErr); }
+
+        document.getElementById('successMsg').classList.add('show');
+        this.style.opacity = '.4';
+        this.style.pointerEvents = 'none';
+        document.getElementById('successMsg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        console.error('Erreur:', err);
+        alert('Erreur lors de l\'inscription. Réessaie.');
+      }
     });
   </script>
 </body>
