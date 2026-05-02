@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boutique — One x One Arena</title>
+  <meta name="description" content="Boutique officielle One x One Arena. Collection TAMANI x One x One Arena." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/mobile.css" />
+    <link rel="stylesheet" href="css/boutique.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+</head>
+<body class="boutique-page">
+
+  <!-- ══════════════════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="index.html" aria-label="Retour à l'accueil">
+        <img class="brand__logo" src="assets/Logo-1x1.png" alt="1X1 Arena" loading="eager" />
+        <span class="brand__name">1X1 ARENA</span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__btn" href="index.html"><span>Accueil</span></a>
+        <a class="nav__btn" href="arena-tournament.html"><span>Événements</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+        <a class="nav__btn is-active" href="boutique.html"><span>Boutique</span></a>
+        <a class="nav__btn" href="contact.html"><span>Contact</span></a>
+      </nav>
+
+      <div class="topbar-icons">
+        <a class="topbar-icon" href="boutique.html" aria-label="Boutique">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </a>
+      </div>
+
+      <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navmobile" hidden>
+      <a class="navmobile__link" href="index.html">Accueil</a>
+      <a class="navmobile__link" href="arena-tournament.html">Événements</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+      <a class="navmobile__link is-active" href="boutique.html">Boutique</a>
+      <a class="navmobile__link" href="contact.html">Contact</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════════════════════════════
+         1. HERO
+    ══════════════════════════════════════════════════════ -->
+    <section class="hero-boutique">
+
+      <div class="hero-boutique__copy">
+        <span class="hero-boutique__label">Boutique</span>
+        <h1 class="hero-boutique__title">Boutique officielle</h1>
+        <p class="hero-boutique__subtitle">Collection TAMANI x One x One Arena</p>
+        <p class="hero-boutique__desc">
+          Découvrez les pièces officielles pensées pour représenter l'énergie du terrain,
+          l'esprit d'équipe et la culture One x One Arena.
+        </p>
+        <div class="hero-boutique__btns">
+          <a href="#produits" class="btn-rose">Voir les produits</a>
+          <a href="#pack" class="btn-outline">Commander le pack</a>
+        </div>
+      </div>
+
+      <div class="hero-boutique__img-wrap">
+        <img
+          class="hero-boutique__tshirt"
+          src="assets/Boutique/T-shirt-Tamani-One.png"
+          alt="T-shirt officiel TAMANI x One x One Arena"
+          loading="eager"
+        />
+      </div>
+
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         2. NOS PRODUITS
+    ══════════════════════════════════════════════════════ -->
+    <div class="produits-sep" id="produits">
+      <span class="produits-sep__line"></span>
+      <span class="produits-sep__text">Nos produits</span>
+      <span class="produits-sep__line"></span>
+    </div>
+
+    <section class="produits">
+      <div class="produits__grid">
+
+        <!-- Carte 1 — T-shirt -->
+        <article class="carte">
+          <div class="carte__img-wrap">
+            <img class="carte__img" src="assets/Boutique/T-shirt-Tamani-One.png" alt="T-shirt TAMANI x One x One Arena" loading="lazy" />
+          </div>
+          <div class="carte__body">
+            <div class="carte__row">
+              <h3 class="carte__title">1. T-shirt TAMANI x One x One Arena</h3>
+              <span class="carte__price">35 €</span>
+            </div>
+            <p class="carte__desc">T-shirt officiel rose, coupe sportive, design TAMANI x One x One Arena.</p>
+            <a href="#" class="carte__btn">Commander</a>
+          </div>
+        </article>
+
+        <!-- Carte 2 — Bonnet -->
+        <article class="carte">
+          <div class="carte__img-wrap">
+            <img class="carte__img" src="assets/Boutique/Bonnet-Tamani-fit.jpeg" alt="Bonnet fit TAMANI" loading="lazy" />
+          </div>
+          <div class="carte__body">
+            <div class="carte__row">
+              <h3 class="carte__title">2. Bonnet fit TAMANI</h3>
+              <span class="carte__price">10 €</span>
+            </div>
+            <p class="carte__desc">Bonnet fit noir avec logo TAMANI, sobre, confortable et facile à porter.</p>
+            <a href="#" class="carte__btn">Commander</a>
+          </div>
+        </article>
+
+        <!-- Carte 3 — Pack -->
+        <article class="carte">
+          <span class="carte__badge">Pack complet</span>
+          <div class="carte__img-wrap">
+            <img class="carte__img" src="assets/Boutique/Photoroom_20260425_122233.png" alt="Pack TAMANI — T-shirt + Bonnet" loading="lazy" />
+          </div>
+          <div class="carte__body">
+            <div class="carte__row">
+              <h3 class="carte__title">3. Pack TAMANI</h3>
+              <span class="carte__price">45 €</span>
+            </div>
+            <p class="carte__desc">Le pack complet avec le t-shirt TAMANI x One x One Arena + le bonnet fit TAMANI.</p>
+            <a href="#pack" class="carte__btn">Commander le pack</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         3. PACK OFFICIEL
+    ══════════════════════════════════════════════════════ -->
+    <section class="pack-section" id="pack">
+      <div class="pack-inner">
+
+        <div class="pack-copy">
+          <h2 class="pack-copy__title">
+            Le pack officiel à <span class="pack-copy__price">45 €</span>
+          </h2>
+          <p class="pack-copy__desc">
+            T-shirt + bonnet fit réunis dans un pack unique pour représenter One x One Arena
+            sur et en dehors du terrain.
+          </p>
+          <div>
+            <a href="#" class="btn-rose">Je veux le pack</a>
+          </div>
+        </div>
+
+        <div class="pack-visual">
+          <img
+            class="pack-visual__img"
+            src="assets/Boutique/Photoroom_20260425_122233(1).png"
+            alt="Pack complet TAMANI — T-shirt + Bonnet"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Badge BEST CHOICE doré — aucun emoji -->
+        <div class="best-choice" aria-label="Best Choice">
+          <div class="best-choice__inner">
+            <!-- Couronne SVG -->
+            <svg class="best-choice__crown-svg" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="2,30 10,4 24,18 38,4 46,30" fill="rgba(255,255,255,0.92)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+              <circle cx="2"  cy="4"  r="3" fill="rgba(255,255,255,0.92)"/>
+              <circle cx="24" cy="2"  r="3" fill="rgba(255,255,255,0.92)"/>
+              <circle cx="46" cy="4"  r="3" fill="rgba(255,255,255,0.92)"/>
+            </svg>
+            <span class="best-choice__text1">BEST</span>
+            <span class="best-choice__text2">CHOICE</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         4. ARGUMENTS
+    ══════════════════════════════════════════════════════ -->
+    <section class="arguments">
+      <div class="arguments__grid">
+
+        <div class="argument">
+          <div class="argument__icon-wrap">
+            <!-- Bouclier + check -->
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="argument__content">
+            <h3 class="argument__title">Design officiel</h3>
+            <p class="argument__text">Des pièces créées avec le plus grand soin aux couleurs de One x One Arena.</p>
+          </div>
+        </div>
+
+        <div class="argument">
+          <div class="argument__icon-wrap">
+            <!-- Ballon basket -->
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M4.93 4.93c4.24 4.24 0 10.6 0 10.6M19.07 4.93c-4.24 4.24 0 10.6 0 10.6M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div class="argument__content">
+            <h3 class="argument__title">Esprit basketball</h3>
+            <p class="argument__text">Inspiré du terrain, pensé pour la performance et le style au quotidien.</p>
+          </div>
+        </div>
+
+        <div class="argument">
+          <div class="argument__icon-wrap">
+            <!-- Couronne -->
+            <svg viewBox="0 0 24 24">
+              <path d="M2 20h20M5 20V10l7-7 7 7v10"/>
+              <polyline points="5 20 5 10 12 3 19 10 19 20"/>
+              <path d="M2 20l3-10 7 4 7-4 3 10"/>
+            </svg>
+          </div>
+          <div class="argument__content">
+            <h3 class="argument__title">Collection limitée</h3>
+            <p class="argument__text">Des éditions limitées pour une communauté unie et passionnée.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         5. GALERIE LIFESTYLE
+    ══════════════════════════════════════════════════════ -->
+    <section class="galerie">
+      <div class="galerie__grid">
+        <div class="galerie__item">
+          <img src="assets/Boutique/T-shirt-tamanixONE.png" alt="T-shirt TAMANI x One x One Arena — face" loading="lazy" />
+        </div>
+        <div class="galerie__item">
+          <img src="assets/Boutique/T-shirt-Tamani-One (2).png" alt="T-shirt TAMANI — dos RISE AGAIN #3" loading="lazy" />
+        </div>
+        <div class="galerie__item">
+          <img src="assets/Boutique/Photoroom_20260425_122243(1).png" alt="Atelier bonnets noirs TAMANI" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         6. CTA FINAL
+    ══════════════════════════════════════════════════════ -->
+    <section class="cta-final">
+      <div class="cta-final__inner">
+        <h2 class="cta-final__title">Prêt à commander&nbsp;?</h2>
+        <p class="cta-final__sub">Sélectionnez votre article ou choisissez le pack complet.</p>
+        <div class="cta-final__btns">
+
+          <a href="#" class="btn-rose">
+            <!-- T-shirt -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+            </svg>
+            Commander le t-shirt
+          </a>
+
+          <a href="#" class="btn-noir">
+            <!-- Bonnet -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2C7.58 2 4 5.58 4 10v2h16v-2c0-4.42-3.58-8-8-8z"/>
+              <rect x="2" y="12" width="20" height="4" rx="2"/>
+            </svg>
+            Commander le bonnet
+          </a>
+
+          <a href="#pack" class="btn-rose">
+            <!-- Pack / boîte -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+              <line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+            Commander le pack
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__top">
+
+        <!-- Brand -->
+        <div>
+          <img class="site-footer__logo" src="assets/Logo-1x1.png" alt="1X1 Arena" />
+          <p class="site-footer__tagline">L&apos;arène de référence pour les compétitions 1 contre 1 en France.</p>
+          <div class="site-footer__socials">
+            <a class="site-footer__social" href="#" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a class="site-footer__social" href="#" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+            </a>
+            <a class="site-footer__social" href="#" aria-label="YouTube">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <span class="site-footer__col-title">Navigation</span>
+          <ul class="site-footer__links">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="arena-tournament.html">Événements</a></li>
+            <li><a href="arena-battle.html">Arena Battle</a></li>
+            <li><a href="ranking.html">Ranking</a></li>
+          </ul>
+        </div>
+
+        <!-- Infos -->
+        <div>
+          <span class="site-footer__col-title">Infos</span>
+          <ul class="site-footer__links">
+            <li><a href="boutique.html">Boutique</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="inscription.html">Inscription</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div>
+          <span class="site-footer__col-title">Newsletter</span>
+          <p class="site-footer__nl-text">Restez informé des prochains événements et sorties exclusives.</p>
+          <div class="site-footer__nl-form">
+            <input class="site-footer__nl-input" type="email" placeholder="votre@email.com" />
+            <button class="site-footer__nl-btn" type="button" aria-label="S&apos;abonner">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <div class="site-footer__bottom">
+        <p class="site-footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/common.js"></script>
+
+</body>
+</html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             

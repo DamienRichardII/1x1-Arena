@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="css/tournament.css" rel="stylesheet"/>
 <link href="css/mobile.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/layout.css" />
 </head>
 <body>
 <!-- Background -->
@@ -19,25 +20,40 @@
 </div>
 <!-- Topbar -->
 <header class="topbar">
-<div class="topbar__inner">
-<a aria-label="Retour à l'accueil" class="brand" href="index.html">
-<img alt="1X1 Arena" class="brand__logo" src="assets/Logo-1x1.png"/>
-<span class="brand__name">1X1 ARENA</span>
-</a>
-<nav class="nav">
-<a class="nav__btn is-active" href="arena-tournament.html"><span>Arena Tournament</span></a>
-<a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
-<a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
-</nav>
-<button aria-expanded="false" aria-label="Ouvrir le menu" class="nav__burger" type="button">
-<span></span><span></span><span></span>
-</button>
-</div>
-<div class="navmobile" hidden="">
-<a class="navmobile__link is-active" href="arena-tournament.html">Arena Tournament</a>
-<a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
-<a class="navmobile__link" href="ranking.html">Ranking</a>
-</div>
+  <div class="topbar__inner">
+    <a class="brand" href="index.html" aria-label="Retour à l'accueil">
+      <img class="brand__logo" src="assets/Logo-1x1.png" alt="1X1 Arena" loading="eager" />
+      <span class="brand__name">1X1 ARENA</span>
+    </a>
+
+    <nav class="nav">
+        <a class="nav__btn" href="index.html"><span>Accueil</span></a>
+        <a class="nav__btn is-active" href="arena-tournament.html"><span>Événements</span></a>
+        <a class="nav__btn" href="arena-battle.html"><span>Arena Battle</span></a>
+        <a class="nav__btn" href="ranking.html"><span>Ranking</span></a>
+        <a class="nav__btn" href="boutique.html"><span>Boutique</span></a>
+        <a class="nav__btn" href="contact.html"><span>Contact</span></a>
+    </nav>
+
+    <div class="topbar-icons">
+      <a class="topbar-icon" href="boutique.html" aria-label="Boutique">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" x2="21" y1="6" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      </a>
+    </div>
+
+    <button class="nav__burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="navmobile" hidden>
+      <a class="navmobile__link" href="index.html">Accueil</a>
+      <a class="navmobile__link is-active" href="arena-tournament.html">Événements</a>
+      <a class="navmobile__link" href="arena-battle.html">Arena Battle</a>
+      <a class="navmobile__link" href="ranking.html">Ranking</a>
+      <a class="navmobile__link" href="boutique.html">Boutique</a>
+      <a class="navmobile__link" href="contact.html">Contact</a>
+  </div>
 </header>
 
 <main class="page">
@@ -130,17 +146,65 @@
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-<div class="footer__inner">
-<div class="footer__brand">1X1 ARENA</div>
-<div class="footer__links">
-<a href="arena-tournament.html">Arena Tournament</a>
-<a href="arena-battle.html">Arena Battle</a>
-<a href="ranking.html">Ranking</a>
-<a href="contact.html">Contact</a>
-</div>
-<div class="footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</div>
-</div>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+
+      <!-- Brand -->
+      <div>
+        <img class="site-footer__logo" src="assets/Logo-1x1.png" alt="1X1 Arena" />
+        <p class="site-footer__tagline">L&apos;arène de référence pour les compétitions 1 contre 1 en France.</p>
+        <div class="site-footer__socials">
+          <a class="site-footer__social" href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a class="site-footer__social" href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+          <a class="site-footer__social" href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.95C5.12 20 12 20 12 20s6.88 0 8.59-.47a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <span class="site-footer__col-title">Navigation</span>
+        <ul class="site-footer__links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="arena-tournament.html">Événements</a></li>
+          <li><a href="arena-battle.html">Arena Battle</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+      </div>
+
+      <!-- Infos -->
+      <div>
+        <span class="site-footer__col-title">Infos</span>
+        <ul class="site-footer__links">
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="inscription.html">Inscription</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <span class="site-footer__col-title">Newsletter</span>
+        <p class="site-footer__nl-text">Restez informé des prochains événements et sorties exclusives.</p>
+        <div class="site-footer__nl-form">
+          <input class="site-footer__nl-input" type="email" placeholder="votre@email.com" />
+          <button class="site-footer__nl-btn" type="button" aria-label="S&apos;abonner">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <div class="site-footer__bottom">
+      <p class="site-footer__copy">© <span id="y"></span> 1X1 Arena. Tous droits réservés.</p>
+    </div>
+  </div>
 </footer>
 
 <!-- Socials -->
