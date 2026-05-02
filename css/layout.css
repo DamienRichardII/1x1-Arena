@@ -351,8 +351,16 @@
   .topbar__inner { padding: 0 4vw !important; height: 56px; }
 }
 @media (max-width: 860px) {
-  .site-footer__top { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .site-footer__top { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .site-footer { padding: 28px 5vw 0; }
+  .site-footer__top { padding-bottom: 24px; }
 }
 @media (max-width: 540px) {
-  .site-footer__top { grid-template-columns: 1fr; gap: 22px; }
+  .site-footer__top { grid-template-columns: 1fr; gap: 16px; }
+  .site-footer { padding: 24px 5vw 0; }
+  .site-footer__top { padding-bottom: 20px; }
+  .site-footer__bottom { padding: 14px 0; }
+  .site-footer__tagline { max-width: 100%; }
+  .site-footer__nl-form { gap: 6px; }
+  .site-footer__nl-input { font-size: .82rem; padding: 9px 12px; }
 }

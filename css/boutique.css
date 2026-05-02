@@ -543,3 +543,220 @@ body.boutique-page {
   justify-content: center;
 }
 
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE MOBILE — boutique
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Tablette (≤ 900px) ─────────────────────────────────── */
+@media (max-width: 900px) {
+
+  .hero-boutique {
+    padding: 60px 5vw 36px;
+    gap: 22px;
+  }
+
+  /* Produits : 2 colonnes */
+  .produits__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  /* Pack : texte + visuel sur 2 cols, badge centré en dessous */
+  .pack-inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "copy visual"
+      "badge badge";
+    gap: 24px;
+  }
+  .pack-copy  { grid-area: copy; }
+  .pack-visual{ grid-area: visual; }
+  .best-choice{
+    grid-area: badge;
+    justify-self: center;
+    margin-top: 0;
+  }
+
+  /* Arguments : 2 colonnes + reset borders */
+  .arguments__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .argument {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(232,24,90,.12);
+  }
+  .argument:nth-child(1) { border-right: 1px solid rgba(232,24,90,.12) !important; }
+  .argument:last-child   { border-bottom: none; }
+
+  /* Galerie : 2 colonnes */
+  .galerie__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* ── Mobile iPhone (≤ 640px) ────────────────────────────── */
+@media (max-width: 640px) {
+
+  /* ─ Anti-overflow global ─ */
+  body.boutique-page { overflow-x: hidden; }
+  .hero-boutique,
+  .produits-sep,
+  .produits,
+  .pack-section,
+  .arguments,
+  .galerie,
+  .cta-final { max-width: 100vw; box-sizing: border-box; }
+
+  /* ─ Hero ─ */
+  .hero-boutique {
+    grid-template-columns: 1fr;
+    min-height: unset;
+    padding: 68px 5vw 28px;
+    gap: 16px;
+    text-align: center;
+  }
+  .hero-boutique__copy {
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-boutique__title {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+  .hero-boutique__desc {
+    max-width: 100%;
+    font-size: .92rem;
+  }
+  .hero-boutique__btns {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .hero-boutique__btns .btn-rose,
+  .hero-boutique__btns .btn-outline {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+  }
+  .hero-boutique__tshirt {
+    width: min(240px, 68vw);
+    animation: none;
+  }
+
+  /* ─ Séparateur NOS PRODUITS ─ */
+  .produits-sep {
+    padding: 20px 5vw 16px;
+    gap: 14px;
+  }
+
+  /* ─ Produits : 1 colonne ─ */
+  .produits {
+    padding: 0 4vw 18px;
+  }
+  .produits__grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .carte__img-wrap {
+    height: 200px;
+  }
+  .carte__price {
+    font-size: 1.25rem;
+  }
+
+  /* ─ Pack officiel : 1 colonne ─ */
+  .pack-section {
+    padding: 26px 5vw 26px;
+  }
+  .pack-inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "copy"
+      "visual"
+      "badge";
+    gap: 20px;
+    text-align: center;
+  }
+  .pack-copy {
+    grid-area: copy;
+    align-items: center;
+  }
+  .pack-copy__desc {
+    max-width: 100%;
+  }
+  .pack-copy__title {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  }
+  .pack-visual {
+    grid-area: visual;
+  }
+  .pack-visual__img {
+    width: min(200px, 56vw);
+  }
+  .best-choice {
+    grid-area: badge;
+    justify-self: center;
+    width: 96px;
+    height: 96px;
+  }
+  .best-choice__crown-svg {
+    width: 26px; height: 17px;
+  }
+  .best-choice__text1,
+  .best-choice__text2 {
+    font-size: .62rem;
+    letter-spacing: .12em;
+  }
+
+  /* ─ Arguments : 1 colonne ─ */
+  .arguments {
+    padding: 20px 4vw 16px;
+  }
+  .arguments__grid {
+    grid-template-columns: 1fr;
+  }
+  .argument {
+    padding: 16px 14px;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(232,24,90,.12) !important;
+  }
+  .argument:last-child {
+    border-bottom: none !important;
+  }
+
+  /* ─ Galerie : 1 colonne ─ */
+  .galerie {
+    padding: 0 4vw 18px;
+  }
+  .galerie__grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .galerie__item {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* ─ CTA final : boutons empilés ─ */
+  .cta-final {
+    padding: 22px 5vw 26px;
+  }
+  .cta-final__title {
+    font-size: clamp(1.3rem, 5.5vw, 1.8rem);
+  }
+  .cta-final__btns {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+  .cta-final__btns .btn-rose,
+  .cta-final__btns .btn-noir {
+    min-width: unset;
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+  }
+}
